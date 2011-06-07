@@ -1,6 +1,10 @@
 require("misc.dict")
 
 globalkeys = awful.util.table.join(
+    awful.key({ modkey, "Control" }, "t", function() shifty.add({ rel_index = 1 }) end),
+    awful.key({ modkey, "Shift"   }, "t", function() shifty.add({ rel_index = 1, nopopup = true }) end),
+    awful.key({ modkey, "Control" }, "r",           shifty.rename),
+    awful.key({ modkey, "Control" }, "w",           shifty.del),
     awful.key({ modkey,           }, ";",      function ()
         awful.prompt.run({ prompt = "Dict: " }, mypromptbox[mouse.screen].widget,
         function(word)

@@ -9,7 +9,7 @@ vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
 weathericon = widget({ type = "imagebox" })
 
 myweather = widget({ type = "textbox" })
-wdata = {}
+wdata = { tempf = "N/A", }
 vicious.register(myweather, vicious.widgets.weather,
     function(widget, args)
         if args["{tempf}"] ~= "N/A" then

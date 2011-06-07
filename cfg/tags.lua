@@ -22,11 +22,11 @@ shifty.config.tags = {
     [mytags[3]] = { position = 3, init = true, layout = "tilebottom",
                     mwfact = 0.7, },
     [mytags[4]] = { position = 4, init = true, layout = "tiletop", },
-    [mytags[5]] = { position = 5, init = true, },
-    [mytags[6]] = { position = 6, init = true, },
-    [mytags[7]] = { position = 7, mwfact = 0.1943359375, spawn = "gimp",
+    [mytags[5]] = { position = 5, },
+    [mytags[6]] = { position = 6, },
+    [mytags[7]] = { position = 7, mwfact = 0.1943359375,
                     layout = "tileleft", },
-    [mytags[8]] = { position = 8, init = true, },
+    [mytags[8]] = { position = 8, },
     
 }
 
@@ -35,9 +35,12 @@ local tags = shifty.config.tags
 shifty.config.apps = {
     { match = { "Firefox.*" }, tag = mytags[1], },
     { match = { "geany" }, tag = mytags[2], },
-    { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },
     { match = { "gimp%-toolbox" }, float = false, tag = mytags[7], slave = false, },
-    { match = { "banshee", "totem" }, tag = mytags[5], },
+    { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },
+    { match = { "inkscape" }, tag = mytags[7], maximized_horizontal = true,
+        maximized_vertical = true,
+    },
+    { match = { "banshee", "totem", }, tag = mytags[5], },
     { match = { "Pidgin", "File Operation Progress", "pinentry", }, float = true, },
     { match = { "" }, buttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),

@@ -7,9 +7,11 @@ theme_base = "/home/kevin/.config/awesome/theme/"
 theme = {}
 
 --theme.font          = "Andika Basic 8"
+--theme.font = "fixed_v01 6"
 theme.font = "Droid Sans 8"
+theme.tasklist_font = "Droid Sans 7"
 --theme.font = "Terminus (TTF) Medium 9"
---theme.taglist_font = "Bitstream Vera Sans 8"
+theme.taglist_font = "Droid Sans 9"
 --theme.font = "Sans 8"
 
 theme.bg_normal     = "#61645B" --dd
