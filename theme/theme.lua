@@ -8,21 +8,16 @@ theme = {}
 
 --theme.font          = "Andika Basic 8"
 theme.font = "Droid Sans 8"
+--theme.font = "Terminus (TTF) Medium 9"
 --theme.taglist_font = "Bitstream Vera Sans 8"
 --theme.font = "Sans 8"
 
---theme.bg_normal     = "#eeeeecee" --dd
---theme.bg_normal     = "#e3e3d9ee" --dd
 theme.bg_normal     = "#61645B" --dd
---theme.bg_focus      = "#4f5353ee"
---theme.bg_focus      = "#63645fee"
 theme.bg_focus      = "#8D8873"
 theme.bg_urgent     = "#DC8536"
 theme.bg_minimize   = "#352E2A"
 
---theme.fg_normal     = "#505050"
 theme.fg_normal     = "#E7E5DE"
---theme.fg_focus      = "#b9bbbb"
 theme.fg_focus      = "#F5F5F5"
 theme.fg_urgent     = "#f7f7f7"
 theme.fg_minimize  = "#b9bbbb"
@@ -51,7 +46,7 @@ theme.tasklist_floating_icon = theme_base .. "tasklist/floatingw.png"
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = theme_base .. "submenu.png"
 theme.menu_height   = "13"
-theme.menu_width    = "100"
+theme.menu_width    = "120"
 
 -- You can add as many variables as
 -- you wish and access them by using

@@ -16,19 +16,6 @@ globalkeys = awful.util.table.join(
                 title = selection(), width = 400, font = "Sans 7" })
         end
     end),
-    awful.key({ modkey,           }, "c",      function ()
-        awful.prompt.run({  text = val and tostring(val),
-        selectall = true,
-        fg_cursor = "black",bg_cursor="orange",
-        prompt = "<span color='#00A5AB'>Calc:</span> " }, mypromptbox[mouse.screen].widget,
-        function(expr)
-          val = awful.util.eval(expr)
-          naughty.notify({ text = expr .. ' = <span color="white">' .. val .. "</span>",
-                           timeout = 0,
-                           run = function() io.popen("echo ".. val .. " | xsel -i"):close() end, })
-        end,
-        nil, awful.util.getdir("cache") .. "/calc")
-    end),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("slimlock") end),
 	awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -105,42 +92,6 @@ globalkeys = awful.util.table.join(
             end
         end)
 )
-
--- Compute the maximum number of digit we need, limited to 9
-
-
--- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it works on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
---for i=1, ( shifty.config.maxtags or 9 ) do
-    --globalkeys = awful.util.table.join(globalkeys,
-        --awful.key({ modkey }, "#" .. i + 9,
-                  --function ()
-                        --local screen = mouse.screen
-                        --if tags[screen][i] then
-                            --awful.tag.viewonly(tags[screen][i])
-                        --end
-                  --end),
-        --awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  --function ()
-                      --local screen = mouse.screen
-                      --if tags[screen][i] then
-                          --awful.tag.viewtoggle(tags[screen][i])
-                      --end
-                  --end),
-        --awful.key({ modkey, "Shift" }, "#" .. i + 9,
-                  --function ()
-                      --if client.focus and tags[client.focus.screen][i] then
-                          --awful.client.movetotag(tags[client.focus.screen][i])
-                      --end
-                  --end),
-        --awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-                  --function ()
-                      --if client.focus and tags[client.focus.screen][i] then
-                          --awful.client.toggletag(tags[client.focus.screen][i])
-                      --end
-                  --end))
---end
 
 for i=1, ( shifty.config.maxtags or 9 ) do
   

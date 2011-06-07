@@ -20,7 +20,7 @@ vicious.register(myweather, vicious.widgets.weather,
         wdata.city = args["{city}"]
         wdata.wind = args["{windmph}"]
         wdata.wind_dir = args["{wind}"]
-        wdata.humid = args["{humid}"]
+        wdata.humidity = args["{humid}"]
         return wdata.tempf .. "° "
     end, 600, "KGIF")
 
@@ -91,12 +91,6 @@ vicious.register(batt_text, vicious.widgets.bat, function(widget, args)
     end
 end, 10, "BAT0")
 
-batt_widget_click = function() awful.util.spawn("xfce4-power-information") end
---batt_bar.widget:add_signal('mouse::enter', batt_popup_enter)
---batt_bar.widget:add_signal('mouse::leave', batt_popup_leave)
---batt_text:add_signal('mouse::enter', batt_popup_enter)
---batt_text:add_signal('mouse::leave', batt_popup_leave)
-
 local batt_buttons = awful.util.table.join(
     awful.button({}, 1, function()
         run_or_raise("xfce4-power-information", { class = "xfce4-power-information" } )
@@ -132,10 +126,11 @@ awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = f
     return string.format("<b>CPU0:</b> %s%%; <b>CPU1:</b> %s%%\n\n<b>Memory used:</b> "
         .. "%sMB, %s%% \n<b>Memory total:</b> %sMB\n<b>Swap used:</b> %s\n<b>Swap total:</b> "
         .. "%sMB\n\n<b>Filesystems</b>:\n<b>/:</b> size %sGB, free %sGB\n<b>/home:</b> size"
-        .. " %sGB, free %sGB\n\n%s", cpustuff.load1, cpustuff.load2, memstuff.usage,
+        .. " %sGB, free %sGB\n%s\n%s", cpustuff.load1, cpustuff.load2, memstuff.usage,
         memstuff.percent, memstuff.total, memstuff.swapused, memstuff.swaptotal,
         fsstuff.rootsize, fsstuff.rootfree, fsstuff.homesize, fsstuff.homefree,
-        awful.util.pread("uptime | sed \"s/users, /users  \\n/\""))
+        awful.util.pread("uptime | cut -d, -f 1,2"),
+        awful.util.pread("uptime | cut -d, -f 4,5,6"))
     end,
     timeout = 1
 })
@@ -143,7 +138,7 @@ awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = f
 awful.tooltip({ objects = { mytextclock, myweather }, timer_function = function()
     return string.format("<big><b>Winter Haven, FL</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s,"
         .. "%s°\n<b>Humidity:</b> %s%%", os.date("%a %b %d, %l:%M %p"), wdata.sky,
-        wdata.weather, wdata.tempf, wdata.humid)
+        wdata.weather, wdata.tempf, wdata.humidity)
     end, timeout = 1 })
 
 myseparator = widget({ type = "textbox" })

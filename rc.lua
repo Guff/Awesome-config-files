@@ -15,7 +15,7 @@ require("cfg.theme")
 -- Load layouts and tags
 require("cfg.tags")
 -- Load wibox
-require("cfg.bar")
+require("cfg.wibox")
 
 -- Key bindings
 require("cfg.global-bindings")
@@ -26,4 +26,5 @@ root.keys(globalkeys)
 root.buttons(globalbuttons)
 
 require("cfg.rules")
+
 shifty.init()

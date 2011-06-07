@@ -12,18 +12,21 @@ layouts =
     awful.layout.suit.magnifier
 }
 
-mytags = { "☉", "⌨", "☐", "☷", "♪", "⚈", "⌿", }
+mytags = { "☉", "⌨", "☐", "☷", "♪", "⚈", "⌘", "⌥" }
 
+-- All have init = true, because trying to move a client to a not-yet-created
+-- tag seems to be problematic, i.e. takes two attempts
 shifty.config.tags = {
     [mytags[1]] = { position = 1, init = true, layout = "floating", },
-    [mytags[2]] = { position = 2, layout = "floating", },
+    [mytags[2]] = { position = 2, init = true, layout = "floating", },
     [mytags[3]] = { position = 3, init = true, layout = "tilebottom",
                     mwfact = 0.7, },
     [mytags[4]] = { position = 4, init = true, layout = "tiletop", },
     [mytags[5]] = { position = 5, init = true, },
     [mytags[6]] = { position = 6, init = true, },
     [mytags[7]] = { position = 7, mwfact = 0.1943359375, spawn = "gimp",
-                    init = true,  layout = "tileleft",},
+                    layout = "tileleft", },
+    [mytags[8]] = { position = 8, init = true, },
     
 }
 
@@ -39,7 +42,10 @@ shifty.config.apps = {
     { match = { "" }, buttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
         awful.button({ modkey }, 1, awful.mouse.client.move),
-        awful.button({ modkey }, 3, awful.mouse.client.resize)) },
+        awful.button({ modkey }, 3, awful.mouse.client.resize)),
+      border_width = beautiful.border_width, border_color = beautiful.border_color,
+      focus = true, 
+    },
 }
 
 shifty.config.defaults = {
@@ -48,22 +54,4 @@ shifty.config.defaults = {
 }
 
 shifty.config.layouts = layouts
-shifty.config.guess_name = false
-
-
---tags = {}
---for s = 1, screen.count() do
-     --Each screen has its own tag table.
-    --tags[s] = awful.tag({ "", "", "", "", "", "" }, s,
-    --tags[s] = awful.tag({ "☉", "⌨", "☐", "☷", "♪", "⚈", "♖" }, s,
-        --{layouts[2], layouts[1], layouts[4], layouts[2], layouts[1], layouts[1], layouts[2]})
---end
-
-
---icon_path = "/home/kevin/.config/awesome/icons/"
---awful.tag.seticon(icon_path .. "applications-internet.png", tags[1][1])
---awful.tag.seticon(icon_path .. "keyboard.png", tags[1][2])
---awful.tag.seticon(icon_path .. "utilities-terminal.png", tags[1][3])
---awful.tag.seticon(icon_path .. "vim.png", tags[1][4])
---awful.tag.seticon(icon_path .. "applications-multimedia.png", tags[1][5])
---awful.tag.seticon(icon_path .. "applications-other.png", tags[1][6])
+--shifty.config.guess_name = false

@@ -4,10 +4,10 @@ freedesktop.utils.terminal = terminal  -- default: "xterm"
 freedesktop.utils.icon_theme = 'gnome' -- look inside /usr/share/icons/, default: nil (don't use icon theme)
 require('freedesktop.menu')
 require('cfg.logoutmenu')
--- require("debian.menu")
 
-awful.menu.menu_keys = { up = { "j", "Up" }, down = { "k", "Down" },
-						 exec = { "Return", "l", "Right" },-- close = "Escape",
+awful.menu.menu_keys = { up = { "j", "Up" },
+						 down = { "k", "Down" },
+						 exec = { "Return", "l", "Right" },
 						 back = { "Left", "h", "Escape" } }
 
 menu_items = freedesktop.menu.new()
@@ -27,8 +27,6 @@ mymainmenu = awful.menu.new({ items = menu_items, width = 150 })
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                    menu = mymainmenu })
---mylauncher = awful.widget.button({ image = beautiful.awesome_icon })
---mylauncher:add_signal("press", mymainmenu.toggle)
 
 -- desktop icons
 require('freedesktop.desktop')
