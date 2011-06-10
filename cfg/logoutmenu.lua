@@ -6,8 +6,9 @@ local suspend = "dbus-send --system --print-reply --dest=\"org.freedesktop.UPowe
 
 logoutmenu = {
 	{ "Shutdown", ck .. "Stop", freedesktop.utils.lookup_icon({ icon = 'system-shutdown' }) },
-	{ "Reboot", ck .. "Restart",  freedesktop.utils.lookup_icon({ icon = 'system-log-out' }) },
+	{ "Reboot", ck .. "Restart",  freedesktop.utils.lookup_icon({ icon = 'gtk-refresh' }) },
 	{ "Suspend", suspend, freedesktop.utils.lookup_icon({ icon = 'media-playback-pause' }) },
 	{ "Lock screen", lock, freedesktop.utils.lookup_icon({ icon = 'system-lock-screen' }) },
+	{ "Log out", awesome.quit, freedesktop.utils.lookup_icon({ icon = 'system-log-out' }) },
 }
 

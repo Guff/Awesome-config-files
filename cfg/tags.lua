@@ -41,7 +41,8 @@ shifty.config.apps = {
         maximized_vertical = true,
     },
     { match = { "banshee", "totem", }, tag = mytags[5], },
-    { match = { "Pidgin", "File Operation Progress", "pinentry", }, float = true, },
+    { match = { "Pidgin", "File Operation Progress", "pinentry", "Thunderbird", },
+        float = true, },
     { match = { "" }, buttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
         awful.button({ modkey }, 1, awful.mouse.client.move),

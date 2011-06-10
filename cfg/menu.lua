@@ -1,7 +1,7 @@
 -- applications menu
 require('freedesktop.utils')
-freedesktop.utils.terminal = terminal  -- default: "xterm"
-freedesktop.utils.icon_theme = 'gnome' -- look inside /usr/share/icons/, default: nil (don't use icon theme)
+freedesktop.utils.terminal = terminal
+freedesktop.utils.icon_theme = 'gnome'
 require('freedesktop.menu')
 require('cfg.logoutmenu')
 

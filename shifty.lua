@@ -22,7 +22,7 @@ local io = io
 local tonumber = tonumber
 local wibox = wibox
 local root = root
-local dbg= dbg
+local dbg = dbg
 local timer = timer
 
 module("shifty")

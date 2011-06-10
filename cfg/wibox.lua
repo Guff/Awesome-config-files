@@ -26,12 +26,14 @@ vicious.register(myweather, vicious.widgets.weather,
 
 fsstuff = {}
 fsdummy = widget({ type = "textbox" })
-vicious.register(fsdummy, vicious.widgets.fs, function(widget, args)
-    fsstuff.rootsize = args["{/ size_gb}"]
-    fsstuff.homesize = args["{/home size_gb}"]
-    fsstuff.rootfree = args["{/ avail_gb}"]
-    fsstuff.homefree = args["{/home avail_gb}"]
-end, 60)
+vicious.register(fsdummy, vicious.widgets.fs,
+    function(widget, args)
+        fsstuff.rootsize = args["{/ size_gb}"]
+        fsstuff.homesize = args["{/home size_gb}"]
+        fsstuff.rootfree = args["{/ avail_gb}"]
+        fsstuff.homefree = args["{/home avail_gb}"]
+    end, 60
+)
 
 mem_bar = awful.widget.progressbar()
 -- Progressbar properties
@@ -44,14 +46,16 @@ mem_bar:set_color("#AECF96")
 mem_bar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 
 memstuff = {}
-vicious.register(mem_bar, vicious.widgets.mem, function(widget, args)
-    memstuff.percent = args[1]
-    memstuff.usage = args[2]
-    memstuff.total = args[3]
-    memstuff.swapused = args[6]
-    memstuff.swaptotal = args[7]
-    return memstuff.percent
-    end, 10)
+vicious.register(mem_bar, vicious.widgets.mem, 
+    function(widget, args)
+        memstuff.percent = args[1]
+        memstuff.usage = args[2]
+        memstuff.total = args[3]
+        memstuff.swapused = args[6]
+        memstuff.swaptotal = args[7]
+        return memstuff.percent
+    end, 10
+)
 
 --cputext = widget( { type = "textbox" })
 --vicious.register(cputext, vicious.widgets.cpu, "$1%", 2) 
@@ -61,57 +65,73 @@ cpu_bar:set_background_color("#494b4f"):set_border_color("#000000")
 cpu_bar:set_color("#AD8488"):set_gradient_colors({ "#AD8488", "#964C53", "#FF3548" })
 
 cpustuff = {}
-vicious.register(cpu_bar, vicious.widgets.cpu, function(widget, args)
-    cpustuff.load1 = args[1]
-    cpustuff.load2 = args[2]
-    return (cpustuff.load1 + cpustuff.load2) / 2
-    end, 2)
+vicious.register(cpu_bar, vicious.widgets.cpu,
+    function(widget, args)
+        cpustuff.load1 = args[1]
+        cpustuff.load2 = args[2]
+        return (cpustuff.load1 + cpustuff.load2) / 2
+    end, 2
+)
 
 batt_bar = awful.widget.progressbar()
 batt_bar:set_width(8):set_height(18):set_vertical(true)
 batt_bar:set_background_color("#494b4f"):set_border_color("#1E8815")
 batt_bar:set_color("#1BC600")
 battstuff = {}
-vicious.register(batt_bar, vicious.widgets.bat, function(widget, args)
-    battstuff.state = args[1]
-    battstuff.level = args[2]
-    battstuff.remaining = args[3]
-    if battstuff.level > 30 then batt_bar:set_color("#79B94A")
-    elseif battstuff.level > 10 then batt_bar:set_color("#CBF045")
-    else batt_bar:set_color("#FC5D44") end
-    return battstuff.level
-end, 5, "BAT0")
+vicious.register(batt_bar, vicious.widgets.bat,
+    function(widget, args)
+        battstuff.state = args[1]
+        battstuff.level = args[2]
+        battstuff.remaining = args[3]
+        if battstuff.level > 30 then batt_bar:set_color("#79B94A")
+        elseif battstuff.level > 10 then batt_bar:set_color("#CBF045")
+        else batt_bar:set_color("#FC5D44") end
+        return battstuff.level
+    end, 5, "BAT0"
+)
 
 batt_text = widget({ type = "textbox" })
-vicious.register(batt_text, vicious.widgets.bat, function(widget, args)
-    if battstuff.state == "-" or battstuff.state == "+" then
-        return " " .. args[3]
-    else
-        return nil
-    end
-end, 10, "BAT0")
+vicious.register(batt_text, vicious.widgets.bat,
+    function(widget, args)
+        if battstuff.state == "-" or battstuff.state == "+" then
+            return " " .. args[3]
+        else
+            return nil
+        end
+    end, 10, "BAT0"
+)
 
 local batt_buttons = awful.util.table.join(
-    awful.button({}, 1, function()
-        run_or_raise("xfce4-power-information", { class = "xfce4-power-information" } )
-    end),
-    awful.button({}, 3, function()
-        run_or_raise("xfce4-power-manager-settings", { class = "xfce4-power-manager-settings" } )
-    end),
-    awful.button({}, 4, function()
-        awful.util.spawn("xbacklight -inc 10")
-    end),
-    awful.button({}, 5, function()
-        awful.util.spawn("xbacklight -dec 10")
-    end)
+    awful.button({}, 1,
+        function()
+            run_or_raise("xfce4-power-information", { class = "xfce4-power-information" } )
+        end
+    ),
+    awful.button({}, 3,
+        function()
+            run_or_raise("xfce4-power-manager-settings", { class = "xfce4-power-manager-settings" } )
+        end
+    ),
+    awful.button({}, 4, 
+        function()
+            awful.util.spawn("xbacklight -inc 10")
+        end
+    ),
+    awful.button({}, 5,
+        function()
+            awful.util.spawn("xbacklight -dec 10")
+        end
+    )
 )
 
 batt_text:buttons(batt_buttons)
 batt_bar.widget:buttons(batt_buttons)
 
-local sysmon_buttons = awful.button({}, 1, function()
-    run_or_raise("lxtask", { class = "lxtask" } )
-end)
+local sysmon_buttons = awful.button({}, 1,
+    function()
+        run_or_raise("lxtask", { class = "lxtask" } )
+    end
+)
 
 mem_bar.widget:buttons(sysmon_buttons)
 cpu_bar.widget:buttons(sysmon_buttons)
@@ -203,38 +223,45 @@ mylayoutbox = {}
 mytaglist = {}
 
 mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, awful.tag.viewnext),
-                    awful.button({ }, 5, awful.tag.viewprev)
-                    )
+    awful.button({ }, 1, awful.tag.viewonly),
+    awful.button({ modkey }, 1, awful.client.movetotag),
+    awful.button({ }, 3, awful.tag.viewtoggle),
+    awful.button({ modkey }, 3, awful.client.toggletag),
+    awful.button({ }, 4, awful.tag.viewnext),
+    awful.button({ }, 5, awful.tag.viewprev)
+)
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if not c:isvisible() then
-                                                  awful.tag.viewonly(c:tags()[1])
-                                              end
-                                              client.focus = c
-                                              c:raise()
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+    awful.button({ }, 1,
+        function (c)
+            if not c:isvisible() then awful.tag.viewonly(c:tags()[1]) end
+            client.focus = c
+            c:raise()
+        end
+    ),
+    awful.button({ }, 3,
+        function ()
+            if instance then
+                instance:hide()
+                instance = nil
+            else
+                instance = awful.menu.clients({ width=250 })
+            end
+        end
+    ),
+    awful.button({ }, 4,
+        function ()
+            awful.client.focus.byidx(1)
+                if client.focus then client.focus:raise() end
+        end
+    ),
+    awful.button({ }, 5,
+        function ()
+            awful.client.focus.byidx(-1)
+            if client.focus then client.focus:raise() end
+        end
+    )
+)
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
@@ -243,17 +270,20 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+        awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+        awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+        awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+        awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end))
+    )
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.noempty, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(
+        function(c)
+            return awful.widget.tasklist.label.currenttags(c, s)
+        end, mytasklist.buttons
+    )
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", height="18", screen = s })
