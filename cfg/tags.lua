@@ -37,6 +37,7 @@ shifty.config.apps = {
     { match = { "geany" }, tag = mytags[2], },
     { match = { "gimp%-toolbox" }, float = false, tag = mytags[7], slave = false, },
     { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },
+    { match = { "color%-dialog" }, float = true, },
     { match = { "inkscape" }, tag = mytags[7], maximized_horizontal = true,
         maximized_vertical = true,
     },
@@ -58,4 +59,5 @@ shifty.config.defaults = {
 }
 
 shifty.config.layouts = layouts
---shifty.config.guess_name = false
+shifty.config.guess_name = false
+shifty.config.guess_position = false

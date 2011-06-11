@@ -1,6 +1,6 @@
 words = {}
 
-for word in io.lines("/home/kevin/.dictcache") do
+for word in io.lines(awful.util.getdir("cache") .. "/dictcache") do
 	table.insert(words, word)
 end
 

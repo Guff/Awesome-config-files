@@ -1,7 +1,7 @@
 -- freedesktop menu
 require("vicious")
 --require("delightful.widgets.weather")
-require("cfg.menu")
+--require("cfg.menu")
 
 mytextclock = widget({ type = "textbox" })
 vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
@@ -73,6 +73,7 @@ vicious.register(cpu_bar, vicious.widgets.cpu,
     end, 2
 )
 
+
 batt_bar = awful.widget.progressbar()
 batt_bar:set_width(8):set_height(18):set_vertical(true)
 batt_bar:set_background_color("#494b4f"):set_border_color("#1E8815")
@@ -100,6 +101,17 @@ vicious.register(batt_text, vicious.widgets.bat,
         end
     end, 10, "BAT0"
 )
+
+batt_icon = widget({ type = "imagebox" })
+batt_icon_str = "/icons/batticon.png"
+function update_batt_icon()
+    batt_icon.image = image(awful.util.getdir("config") .. batt_icon_str)
+    batt_icon.image:draw_rectangle(1, 3, 8, 10, true, "#00ff00")
+end
+
+batt_timer = timer({ timeout = 5 })
+batt_timer:add_signal("timeout", update_batt_icon)
+batt_timer:start()
 
 local batt_buttons = awful.util.table.join(
     awful.button({}, 1,
@@ -299,6 +311,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         batt_text,
         batt_bar.widget,
+        --batt_icon,
         s == 1 and mysystray or nil,
         mem_bar.widget,
         cpu_bar.widget,

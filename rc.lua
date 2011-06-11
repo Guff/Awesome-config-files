@@ -5,13 +5,12 @@ require("awful.rules")
 require("awful.remote")
 -- Theme handling library
 require("beautiful")
+beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
 -- Notification library
 require("naughty")
 
 -- Misc. settings and tools
 require("cfg.misc")
--- Load theme
-require("cfg.theme")
 -- Load layouts and tags
 require("cfg.tags")
 -- Load wibox
