@@ -1,7 +1,7 @@
 -- freedesktop menu
 require("vicious")
 --require("delightful.widgets.weather")
---require("cfg.menu")
+require("cfg.menu")
 
 mytextclock = widget({ type = "textbox" })
 vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
