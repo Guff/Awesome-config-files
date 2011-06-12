@@ -1,6 +1,6 @@
--- freedesktop menu
+-- widgets
 require("vicious")
---require("delightful.widgets.weather")
+-- freedesktop menu
 require("cfg.menu")
 
 mytextclock = widget({ type = "textbox" })
@@ -73,40 +73,38 @@ vicious.register(cpu_bar, vicious.widgets.cpu,
     end, 2
 )
 
-
-batt_bar = awful.widget.progressbar()
-batt_bar:set_width(8):set_height(18):set_vertical(true)
-batt_bar:set_background_color("#494b4f"):set_border_color("#1E8815")
-batt_bar:set_color("#1BC600")
 battstuff = {}
-vicious.register(batt_bar, vicious.widgets.bat,
+batt_text = widget({ type = "textbox" })
+vicious.register(batt_text, vicious.widgets.bat,
     function(widget, args)
         battstuff.state = args[1]
         battstuff.level = args[2]
         battstuff.remaining = args[3]
-        if battstuff.level > 30 then batt_bar:set_color("#79B94A")
-        elseif battstuff.level > 10 then batt_bar:set_color("#CBF045")
-        else batt_bar:set_color("#FC5D44") end
-        return battstuff.level
-    end, 5, "BAT0"
-)
-
-batt_text = widget({ type = "textbox" })
-vicious.register(batt_text, vicious.widgets.bat,
-    function(widget, args)
         if battstuff.state == "-" or battstuff.state == "+" then
             return " " .. args[3]
         else
             return nil
         end
-    end, 10, "BAT0"
+    end, 5, "BAT0"
 )
 
 batt_icon = widget({ type = "imagebox" })
-batt_icon_str = "/icons/batticon.png"
+batt_icon_image = image(awful.util.getdir("config") .. "/icons/batticon.png")
+local function round(x)
+    if x - math.floor(x) > 0.5 then return math.ceil(x) else return math.floor(x) end
+end
 function update_batt_icon()
-    batt_icon.image = image(awful.util.getdir("config") .. batt_icon_str)
-    batt_icon.image:draw_rectangle(1, 3, 8, 10, true, "#00ff00")
+    batt_icon.image = batt_icon_image
+    local off_x, off_y = 1, { top = 3, bot = 1 }
+    local w, h = batt_icon.image.width, batt_icon.image.height
+    local color = nil
+    if battstuff.level > 30 then color = beautiful.batt_ok
+    elseif battstuff.level > 10 then color = beautiful.batt_danger
+    else color = beautiful.batt_dying end
+    
+    local percent = battstuff.level / 100
+    local rect_h = round((h - off_y.top - off_y.bot) * percent)
+    batt_icon.image:draw_rectangle(off_x, h - rect_h, w - 2 * off_x, rect_h - off_y.bot, true, color)
 end
 
 batt_timer = timer({ timeout = 5 })
@@ -137,7 +135,7 @@ local batt_buttons = awful.util.table.join(
 )
 
 batt_text:buttons(batt_buttons)
-batt_bar.widget:buttons(batt_buttons)
+batt_icon:buttons(batt_buttons)
 
 local sysmon_buttons = awful.button({}, 1,
     function()
@@ -148,7 +146,7 @@ local sysmon_buttons = awful.button({}, 1,
 mem_bar.widget:buttons(sysmon_buttons)
 cpu_bar.widget:buttons(sysmon_buttons)
 
-awful.tooltip({ objects = { batt_bar.widget, batt_text }, timer_function = function()
+awful.tooltip({ objects = { batt_icon, batt_text }, timer_function = function()
     return string.format("<big>Battery:</big>\n<b>Level:</b> %s%%\n<b>State:</b> %s\n<b>"
         .. "Time remaining:</b> %s", battstuff.level, battstuff.state, battstuff.remaining)
     end, timeout = 10
@@ -167,9 +165,9 @@ awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = f
     timeout = 1
 })
 
-awful.tooltip({ objects = { mytextclock, myweather }, timer_function = function()
+awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function()
     return string.format("<big><b>Winter Haven, FL</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s,"
-        .. "%s°\n<b>Humidity:</b> %s%%", os.date("%a %b %d, %l:%M %p"), wdata.sky,
+        .. "%s°\n<b>Humidity:</b> %s%%", os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
         wdata.weather, wdata.tempf, wdata.humidity)
     end, timeout = 1 })
 
@@ -310,8 +308,7 @@ for s = 1, screen.count() do
         
         mylayoutbox[s],
         batt_text,
-        batt_bar.widget,
-        --batt_icon,
+        batt_icon,
         s == 1 and mysystray or nil,
         mem_bar.widget,
         cpu_bar.widget,

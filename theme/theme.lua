@@ -6,15 +6,11 @@ theme_base = awful.util.getdir("config") .. "/theme/"
 
 theme = {}
 
---theme.font          = "Andika Basic 8"
---theme.font = "fixed_v01 6"
 theme.font = "Droid Sans 8"
 theme.tasklist_font = "Droid Sans 8"
---theme.font = "Terminus (TTF) Medium 9"
 theme.taglist_font = "Droid Sans 9"
---theme.font = "Sans 8"
 
-theme.bg_normal     = "#61645B" --dd
+theme.bg_normal     = "#61645B"
 theme.bg_focus      = "#8D8873"
 theme.bg_urgent     = "#DC8536"
 theme.bg_minimize   = "#352E2A"
@@ -42,6 +38,11 @@ theme.taglist_squares_sel = theme_base .. "taglist/squarefw.png"
 theme.taglist_squares_unsel = theme_base .. "taglist/square.png"
 
 theme.tasklist_floating_icon = theme_base .. "tasklist/floatingw.png"
+
+-- Widget stuff
+theme.batt_ok = "#79B94A"
+theme.batt_danger = "#CBF045"
+theme.batt_dying = "#FC5D44"
 
 -- Variables set for theming menu
 -- menu_[bg|fg]_[normal|focus]
@@ -98,7 +99,7 @@ theme.layout_tileleft = theme_base .. "layouts/tileleft.png"
 theme.layout_tile = theme_base .. "layouts/tile.png"
 theme.layout_tiletop = theme_base .. "layouts/tiletop.png"
 
---theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+
 theme.awesome_icon = theme_base .. "awesome-icon-3.png"
 
 return theme
