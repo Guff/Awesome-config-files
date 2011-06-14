@@ -38,10 +38,12 @@ shifty.config.apps = {
     { match = { "gimp%-toolbox" }, float = false, tag = mytags[7], slave = false, },
     { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },
     { match = { "color%-dialog" }, float = true, },
+    { match = { ".*dialog.*" }, float = true, },
     { match = { "inkscape" }, tag = mytags[7], maximized_horizontal = true,
         maximized_vertical = true,
     },
     { match = { "banshee", "totem", }, tag = mytags[5], },
+    { match = { "sakura", }, tag = mytags[3], },
     { match = { "Pidgin", "File Operation Progress", "pinentry", "Thunderbird", },
         float = true, },
     { match = { "" }, buttons = awful.util.table.join(

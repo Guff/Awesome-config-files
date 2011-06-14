@@ -1,15 +1,15 @@
 -- widgets
 require("vicious")
+require("misc.notifications")
 -- freedesktop menu
-require("cfg.menu")
+--require("cfg.menu")
 
 mytextclock = widget({ type = "textbox" })
 vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
 
-weathericon = widget({ type = "imagebox" })
-
 myweather = widget({ type = "textbox" })
 wdata = { tempf = "N/A", }
+-- Need to siphon off the data for use in the tooltips later
 vicious.register(myweather, vicious.widgets.weather,
     function(widget, args)
         if args["{tempf}"] ~= "N/A" then
@@ -97,7 +97,7 @@ function update_batt_icon()
     batt_icon.image = batt_icon_image
     local off_x, off_y = 1, { top = 3, bot = 1 }
     local w, h = batt_icon.image.width, batt_icon.image.height
-    local color = nil
+    local color = beautiful.batt_ok
     if battstuff.level > 30 then color = beautiful.batt_ok
     elseif battstuff.level > 10 then color = beautiful.batt_danger
     else color = beautiful.batt_dying end
@@ -300,7 +300,7 @@ for s = 1, screen.count() do
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-            mylauncher,
+            --mylauncher,
             mytaglist[s],
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
@@ -309,6 +309,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         batt_text,
         batt_icon,
+--        vol_icon,
         s == 1 and mysystray or nil,
         mem_bar.widget,
         cpu_bar.widget,

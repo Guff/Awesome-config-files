@@ -13,6 +13,7 @@ require("naughty")
 require("cfg.misc")
 -- Load layouts and tags
 require("cfg.tags")
+require("misc.notifications")
 -- Load wibox
 require("cfg.wibox")
 
