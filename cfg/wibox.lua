@@ -105,6 +105,11 @@ function update_batt_icon()
     local percent = battstuff.level / 100
     local rect_h = round((h - off_y.top - off_y.bot) * percent)
     batt_icon.image:draw_rectangle(off_x, h - rect_h, w - 2 * off_x, rect_h - off_y.bot, true, color)
+    
+    if battstuff.state ~= "-" then 
+        batt_icon.image:insert(
+            image(awful.util.getdir("config") .. "/icons/charging.png"))
+    end
 end
 
 batt_timer = timer({ timeout = 5 })
@@ -124,12 +129,14 @@ local batt_buttons = awful.util.table.join(
     ),
     awful.button({}, 4, 
         function()
-            awful.util.spawn("xbacklight -inc 10")
+            os.execute("xbacklight -inc 10 > /dev/null 2>&1")
+            brightness_adjust(10)
         end
     ),
     awful.button({}, 5,
         function()
-            awful.util.spawn("xbacklight -dec 10")
+            os.execute("xbacklight -dec 10 > /dev/null 2>&1")
+            brightness_adjust(-10)
         end
     )
 )
