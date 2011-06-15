@@ -1,5 +1,21 @@
--- Show fancy notifications for backlight and (eventually) volume hotkeys
+-- Show fancy notifications for backlight and volume hotkeys
 
+function fancy_notify(percent, icon_function, notification)
+	local img = image.argb32(200, 50, nil)
+	img:draw_rectangle(0, 0, img.width, img.height, true, beautiful.bg_normal)
+	img:insert(image(icon_function(percent)), 0, 1)
+	img:draw_rectangle(60, 20, 130, 10, true, beautiful.bg_focus)
+	img:draw_rectangle(62, 22, 126 * percent / 100, 6, true, beautiful.fg_focus)
+	
+	local id = nil
+	if notification then id = notification.id end
+	return naughty.notify({ icon = img, replaces_id = id,
+							text = "\n" .. math.ceil(percent) .. "%",
+							font = "Sans Bold 10" })
+end
+	
+
+-- Brightness notifications
 function brightness_down()
 	brightness_adjust(-10)
 end
@@ -8,31 +24,20 @@ function brightness_up()
 	brightness_adjust(10)
 end
 
+local bright_notification = nil
 function brightness_adjust(inc)
+	-- Uncomment if your backlight keys don't work automatically
 	--os.execute("xbacklight -inc " .. inc .. " > /dev/null 2>&1")
 	local brightness = tonumber(awful.util.pread("xbacklight -get"))
-	brightness_notify(brightness)
+	bright_notification =
+		fancy_notify(brightness, brightness_get_icon, bright_notification)
 end
 
-local bright_notification = nil
-local bright_icon = image(awful.util.getdir("config") .. "/icons/brightness.png")
-local bright_img = image.argb32(200, 50, nil)
-bright_img:draw_rectangle(0, 0, bright_img.width, bright_img.height, true,
-	beautiful.bg_normal)
-bright_img:insert(bright_icon, 0, 1)
-
-function brightness_notify(brightness)
-	local img = bright_img
-	img:draw_rectangle(60, 20, 130, 10, true, beautiful.bg_focus)
-	img:draw_rectangle(62, 22, 126 * brightness / 100, 6, true, beautiful.fg_focus)
-	
-	local id = nil
-	if bright_notification then id = bright_notification.id end
-	bright_notification = naughty.notify(
-		{ icon = img, replaces_id = id, text = "\n" .. math.ceil(brightness) .. "%",
-		  font = "Sans Bold 10" }
-	)
+function brightness_get_icon(brightness)
+	return awful.util.getdir("config") .. "/icons/brightness.png"
 end
+
+-- Volume notifications
 
 function volume_down()
 	volume_adjust(-5)
@@ -46,6 +51,7 @@ function volume_mute()
 	volume_adjust(0)
 end
 
+local vol_notification = nil
 function volume_adjust(inc)
 	if inc < 0 then inc = math.abs(inc) .. "%-"
 	elseif inc > 0 then inc = inc .. "%+"
@@ -57,13 +63,11 @@ function volume_adjust(inc)
 	)
 	local is_muted = string.find(awful.util.pread("amixer get Master"),
 								 '%[on%]') == nil
-	if is_muted then volume_notify(0) else volume_notify(volume) end
+	if is_muted then volume = 0 end
+	vol_notification = fancy_notify(volume, volume_get_icon, vol_notification)
 end
 
-function volume_get_icon()
-	local volume = tonumber(
-		awful.util.pread("amixer get Master | grep -om1 '[[:digit:]]*%' | tr -d %")
-	)
+function volume_get_icon(volume)
 	local is_muted = string.find(awful.util.pread("amixer get Master"),
 								 '%[on%]') == nil
 	local icon_str = nil
@@ -73,25 +77,4 @@ function volume_get_icon()
 	elseif volume == 0 then icon_str = "off.png" end
 	if is_muted then icon_str = "muted.png" end
 	return awful.util.getdir("config") .. "/icons/volume-" .. icon_str
-end
-
-local vol_notification = nil
-local vol_img = image.argb32(200, 50, nil)
-
-function volume_notify(volume)
-	local img = vol_img
-	img:draw_rectangle(0, 0, vol_img.width, vol_img.height, true,
-		beautiful.bg_normal)
-	local vol_icon = image(volume_get_icon())
-	img:insert(vol_icon, 0, 1)
-	img:draw_rectangle(60, 20, 130, 10, true, beautiful.bg_focus)
-	img:draw_rectangle(62, 22, 126 * volume / 100, 6, true, beautiful.fg_focus)
-	
-	local id = nil
-	if vol_notification then id = vol_notification.id end
-	vol_notification = naughty.notify(
-		{ icon = img, replaces_id = id, text = "\n" .. math.ceil(volume) .. "%",
-		  font = "Sans Bold 10" }
-	)
-	img = vol_img
 end
