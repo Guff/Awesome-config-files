@@ -252,8 +252,12 @@ mytasklist.buttons = awful.util.table.join(
     awful.button({ }, 1,
         function (c)
             if not c:isvisible() then awful.tag.viewonly(c:tags()[1]) end
-            client.focus = c
-            c:raise()
+            if client.focus == c then
+                c.minimized = not c.minimized
+            else
+                client.focus = c
+                c:raise()
+            end
         end
     ),
     awful.button({ }, 3,
@@ -301,9 +305,10 @@ for s = 1, screen.count() do
             return awful.widget.tasklist.label.currenttags(c, s)
         end, mytasklist.buttons
     )
-
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", height="18", screen = s })
+    -- Space out a few widgets
+    
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
@@ -331,3 +336,7 @@ for s = 1, screen.count() do
 end
 
 shifty.taglist = mytaglist
+
+awful.widget.layout.margins[cpu_bar.widget] = { left = 5 }
+awful.widget.layout.margins[myweather] = { left = 5 }
+awful.widget.layout.margins[batt_icon] = { left = 2, right = 2 }
