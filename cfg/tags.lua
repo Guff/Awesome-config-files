@@ -38,6 +38,7 @@ shifty.config.apps = {
     { match = { "gimp%-toolbox" }, float = false, tag = mytags[7], slave = false, },
     { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },
     { match = { "color%-dialog" }, float = true, },
+    -- Heck, if it has dialog in the name, safe to assume it should float
     { match = { ".*dialog.*" }, float = true, },
     { match = { "inkscape" }, tag = mytags[7], maximized_horizontal = true,
         maximized_vertical = true,

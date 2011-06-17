@@ -103,7 +103,7 @@ function rename(tag, prefix, no_selectall)
     fg = theme.fg_urgent or '#ffffff'
   end
 
-  awful.prompt.run( { 
+  awful.prompt.run({ 
     fg_cursor = fg, bg_cursor = bg, ul_cursor = "single",
     text = text, selectall = not no_selectall },
     taglist[scr][tag2index(scr,t)][1],

@@ -37,6 +37,7 @@ theme.border_marked = "#f7f7f7"
 theme.taglist_squares_sel = theme_base .. "taglist/squarefw.png"
 theme.taglist_squares_unsel = theme_base .. "taglist/square.png"
 
+-- get rid of that stupid moth
 theme.tasklist_floating_icon = theme_base .. "tasklist/floatingw.png"
 
 -- Widget stuff

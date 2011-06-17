@@ -45,15 +45,15 @@ mem_bar:set_border_color("#000000")
 mem_bar:set_color("#AECF96")
 mem_bar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 
-memstuff = {}
+mem_info = {}
 vicious.register(mem_bar, vicious.widgets.mem, 
     function(widget, args)
-        memstuff.percent = args[1]
-        memstuff.usage = args[2]
-        memstuff.total = args[3]
-        memstuff.swapused = args[6]
-        memstuff.swaptotal = args[7]
-        return memstuff.percent
+        mem_info.percent = args[1]
+        mem_info.usage = args[2]
+        mem_info.total = args[3]
+        mem_info.swapused = args[6]
+        mem_info.swaptotal = args[7]
+        return mem_info.percent
     end, 10
 )
 
@@ -64,23 +64,23 @@ cpu_bar:set_width(8):set_height(18):set_vertical(true)
 cpu_bar:set_background_color("#494b4f"):set_border_color("#000000")
 cpu_bar:set_color("#AD8488"):set_gradient_colors({ "#AD8488", "#964C53", "#FF3548" })
 
-cpustuff = {}
+cpu_info = {}
 vicious.register(cpu_bar, vicious.widgets.cpu,
     function(widget, args)
-        cpustuff.load1 = args[1]
-        cpustuff.load2 = args[2]
-        return (cpustuff.load1 + cpustuff.load2) / 2
+        cpu_info.load1 = args[1]
+        cpu_info.load2 = args[2]
+        return (cpu_info.load1 + cpu_info.load2) / 2
     end, 2
 )
 
-battstuff = {}
+batt_info = {}
 batt_text = widget({ type = "textbox" })
 vicious.register(batt_text, vicious.widgets.bat,
     function(widget, args)
-        battstuff.state = args[1]
-        battstuff.level = args[2]
-        battstuff.remaining = args[3]
-        if battstuff.state == "-" or battstuff.state == "+" then
+        batt_info.state = args[1]
+        batt_info.level = args[2]
+        batt_info.remaining = args[3]
+        if batt_info.state == "-" or batt_info.state == "+" then
             return " " .. args[3]
         else
             return nil
@@ -90,23 +90,25 @@ vicious.register(batt_text, vicious.widgets.bat,
 
 batt_icon = widget({ type = "imagebox" })
 batt_icon_image = image(awful.util.getdir("config") .. "/icons/batticon.png")
+-- surprised this isn't in lua's math library
 local function round(x)
     if x - math.floor(x) > 0.5 then return math.ceil(x) else return math.floor(x) end
 end
+
 function update_batt_icon()
     batt_icon.image = batt_icon_image
     local off_x, off_y = 1, { top = 3, bot = 1 }
     local w, h = batt_icon.image.width, batt_icon.image.height
     local color = beautiful.batt_ok
-    if battstuff.level > 30 then color = beautiful.batt_ok
-    elseif battstuff.level > 10 then color = beautiful.batt_danger
+    if batt_info.level > 30 then color = beautiful.batt_ok
+    elseif batt_info.level > 10 then color = beautiful.batt_danger
     else color = beautiful.batt_dying end
     
-    local percent = battstuff.level / 100
+    local percent = batt_info.level / 100
     local rect_h = round((h - off_y.top - off_y.bot) * percent)
     batt_icon.image:draw_rectangle(off_x, h - rect_h, w - 2 * off_x, rect_h - off_y.bot, true, color)
     
-    if battstuff.state ~= "-" then 
+    if batt_info.state ~= "-" then 
         batt_icon.image:insert(
             image(awful.util.getdir("config") .. "/icons/charging.png"))
     end
@@ -155,7 +157,7 @@ cpu_bar.widget:buttons(sysmon_buttons)
 
 awful.tooltip({ objects = { batt_icon, batt_text }, timer_function = function()
     return string.format("<big>Battery:</big>\n<b>Level:</b> %s%%\n<b>State:</b> %s\n<b>"
-        .. "Time remaining:</b> %s", battstuff.level, battstuff.state, battstuff.remaining)
+        .. "Time remaining:</b> %s", batt_info.level, batt_info.state, batt_info.remaining)
     end, timeout = 10
 })
 
@@ -163,8 +165,8 @@ awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = f
     return string.format("<b>CPU0:</b> %s%%; <b>CPU1:</b> %s%%\n\n<b>Memory used:</b> "
         .. "%sMB, %s%% \n<b>Memory total:</b> %sMB\n<b>Swap used:</b> %s\n<b>Swap total:</b> "
         .. "%sMB\n\n<b>Filesystems</b>:\n<b>/:</b> size %sGB, free %sGB\n<b>/home:</b> size"
-        .. " %sGB, free %sGB\n%s %s", cpustuff.load1, cpustuff.load2, memstuff.usage,
-        memstuff.percent, memstuff.total, memstuff.swapused, memstuff.swaptotal,
+        .. " %sGB, free %sGB\n%s %s", cpu_info.load1, cpu_info.load2, mem_info.usage,
+        mem_info.percent, mem_info.total, mem_info.swapused, mem_info.swaptotal,
         fsstuff.rootsize, fsstuff.rootfree, fsstuff.homesize, fsstuff.homefree,
         awful.util.pread('uptime | sed "s/\\(.*users\\).*/\\1/"'),
         awful.util.pread("cut -d\" \" -f1,2,3 /proc/loadavg"))
@@ -173,7 +175,7 @@ awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = f
 })
 
 awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function()
-    return string.format("<big><b>Winter Haven, FL</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s,"
+    return string.format("<big><b>Winter Haven, FL</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s, "
         .. "%s°\n<b>Humidity:</b> %s%%", os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
         wdata.weather, wdata.tempf, wdata.humidity)
     end, timeout = 1 })
@@ -321,7 +323,6 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         batt_text,
         batt_icon,
---        vol_icon,
         s == 1 and mysystray or nil,
         mem_bar.widget,
         cpu_bar.widget,

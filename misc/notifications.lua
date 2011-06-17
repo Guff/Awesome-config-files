@@ -13,7 +13,6 @@ function fancy_notify(percent, icon_function, notification)
 							text = "\n" .. math.ceil(percent) .. "%",
 							font = "Sans Bold 10" })
 end
-	
 
 -- Brightness notifications
 function brightness_down()
