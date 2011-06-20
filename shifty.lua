@@ -105,8 +105,8 @@ function rename(tag, prefix, no_selectall)
 
   awful.prompt.run({ 
     fg_cursor = fg, bg_cursor = bg, ul_cursor = "single",
-    text = text, selectall = not no_selectall },
-    taglist[scr][tag2index(scr,t)][1],
+    text = text, selectall = not no_selectall, prompt = "Rename tag: ", },
+    promptbox[mouse.screen].widget,
     function (name) if name:len() > 0 then t.name = name; end end, 
     completion,
     awful.util.getdir("cache") .. "/history_tags", nil,

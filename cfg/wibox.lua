@@ -2,7 +2,7 @@
 require("vicious")
 require("misc.notifications")
 -- freedesktop menu
---require("cfg.menu")
+require("cfg.menu")
 
 mytextclock = widget({ type = "textbox" })
 vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
@@ -24,14 +24,14 @@ vicious.register(myweather, vicious.widgets.weather,
         return wdata.tempf .. "° "
     end, 600, "KGIF")
 
-fsstuff = {}
+fs_info = {}
 fsdummy = widget({ type = "textbox" })
 vicious.register(fsdummy, vicious.widgets.fs,
     function(widget, args)
-        fsstuff.rootsize = args["{/ size_gb}"]
-        fsstuff.homesize = args["{/home size_gb}"]
-        fsstuff.rootfree = args["{/ avail_gb}"]
-        fsstuff.homefree = args["{/home avail_gb}"]
+        fs_info.rootsize = args["{/ size_gb}"]
+        fs_info.homesize = args["{/home size_gb}"]
+        fs_info.rootfree = args["{/ avail_gb}"]
+        fs_info.homefree = args["{/home avail_gb}"]
     end, 60
 )
 
@@ -88,11 +88,40 @@ vicious.register(batt_text, vicious.widgets.bat,
     end, 5, "BAT0"
 )
 
+volume_icon = widget({ type = "imagebox" })
+volume_icon.image = image(volume_get_icon(get_volume()))
+
+function update_volume_icon()
+    volume_icon.image = image(volume_get_icon(get_volume()))
+end
+
+function volume_up_and_update()
+    volume_up()
+    update_volume_icon()
+end
+
+function volume_down_and_update()
+    volume_down()
+    update_volume_icon()
+end
+
+function volume_mute_and_update()
+    volume_mute()
+    update_volume_icon()
+end
+
+volume_icon:buttons(awful.util.table.join(
+    awful.button({}, 1, function () awful.util.spawn("pavucontrol") end),
+    awful.button({}, 2, volume_mute_and_update),
+    awful.button({}, 4, volume_up_and_update),
+    awful.button({}, 5, volume_down_and_update))
+)
+
 batt_icon = widget({ type = "imagebox" })
 batt_icon_image = image(awful.util.getdir("config") .. "/icons/batticon.png")
 -- surprised this isn't in lua's math library
 local function round(x)
-    if x - math.floor(x) > 0.5 then return math.ceil(x) else return math.floor(x) end
+    if x - math.floor(x) >= 0.5 then return math.ceil(x) else return math.floor(x) end
 end
 
 function update_batt_icon()
@@ -119,23 +148,23 @@ batt_timer:add_signal("timeout", update_batt_icon)
 batt_timer:start()
 
 local batt_buttons = awful.util.table.join(
-    awful.button({}, 1,
+    awful.button({ }, 1,
         function()
             run_or_raise("xfce4-power-information", { class = "xfce4-power-information" } )
         end
     ),
-    awful.button({}, 3,
+    awful.button({ }, 3,
         function()
             run_or_raise("xfce4-power-manager-settings", { class = "xfce4-power-manager-settings" } )
         end
     ),
-    awful.button({}, 4, 
+    awful.button({ }, 4, 
         function()
             os.execute("xbacklight -inc 10 > /dev/null 2>&1")
             brightness_adjust(10)
         end
     ),
-    awful.button({}, 5,
+    awful.button({ }, 5,
         function()
             os.execute("xbacklight -dec 10 > /dev/null 2>&1")
             brightness_adjust(-10)
@@ -163,11 +192,11 @@ awful.tooltip({ objects = { batt_icon, batt_text }, timer_function = function()
 
 awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = function()
     return string.format("<b>CPU0:</b> %s%%; <b>CPU1:</b> %s%%\n\n<b>Memory used:</b> "
-        .. "%sMB, %s%% \n<b>Memory total:</b> %sMB\n<b>Swap used:</b> %s\n<b>Swap total:</b> "
+        .. "%sMB, %s%% \n<b>Memory total:</b> %sMB\n<b>Swap used:</b> %sMB\n<b>Swap total:</b> "
         .. "%sMB\n\n<b>Filesystems</b>:\n<b>/:</b> size %sGB, free %sGB\n<b>/home:</b> size"
         .. " %sGB, free %sGB\n%s %s", cpu_info.load1, cpu_info.load2, mem_info.usage,
         mem_info.percent, mem_info.total, mem_info.swapused, mem_info.swaptotal,
-        fsstuff.rootsize, fsstuff.rootfree, fsstuff.homesize, fsstuff.homefree,
+        fs_info.rootsize, fs_info.rootfree, fs_info.homesize, fs_info.homefree,
         awful.util.pread('uptime | sed "s/\\(.*users\\).*/\\1/"'),
         awful.util.pread("cut -d\" \" -f1,2,3 /proc/loadavg"))
     end,
@@ -179,9 +208,11 @@ awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function
         .. "%s°\n<b>Humidity:</b> %s%%", os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
         wdata.weather, wdata.tempf, wdata.humidity)
     end, timeout = 1 })
-
-myseparator = widget({ type = "textbox" })
-myseparator.text = " "
+    
+awful.tooltip({ objects = { volume_icon, }, timer_function = function()
+    if get_muted() then return "Volume: " .. get_volume() .. "%," .. " muted"
+    else return "Volume: " .. get_volume() .. "%" end
+end, timeout = 1 })
 
 local calendar = nil
 local offset = 0
@@ -232,6 +263,7 @@ mytextclock:buttons(awful.util.table.join(
     end)
 ))
 
+
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
@@ -262,6 +294,7 @@ mytasklist.buttons = awful.util.table.join(
             end
         end
     ),
+    awful.button({ }, 2, function (c) c:kill() end),
     awful.button({ }, 3,
         function ()
             if instance then
@@ -314,7 +347,7 @@ for s = 1, screen.count() do
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-            --mylauncher,
+			mylauncher,
             mytaglist[s],
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
@@ -323,13 +356,12 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         batt_text,
         batt_icon,
+        volume_icon,
         s == 1 and mysystray or nil,
         mem_bar.widget,
         cpu_bar.widget,
-        myseparator,
         mytextclock,
         myweather,
-        myseparator,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
         
@@ -337,6 +369,7 @@ for s = 1, screen.count() do
 end
 
 shifty.taglist = mytaglist
+shifty.promptbox = mypromptbox
 
 awful.widget.layout.margins[cpu_bar.widget] = { left = 5 }
 awful.widget.layout.margins[myweather] = { left = 5 }

@@ -5,10 +5,16 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86MonBrightnessUp", brightness_up),
     awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("slimlock") end),
-    awful.key({ }, "XF86AudioLowerVolume", volume_down),
-    awful.key({ }, "XF86AudioRaiseVolume", volume_up),
-    awful.key({ }, "XF86AudioMute", volume_mute),
+    awful.key({ }, "XF86AudioLowerVolume", volume_down_and_update),
+    awful.key({ }, "XF86AudioRaiseVolume", volume_up_and_update),
+    awful.key({ }, "XF86AudioMute", volume_mute_and_update),
 	awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
+    
+    -- MPD keys
+    awful.key({ modkey, "Shift"   }, "Up", function () awful.util.spawn("ncmpcpp toggle") end),
+    awful.key({ modkey, "Shift"   }, "Down", function () awful.util.spawn("ncmpcpp stop") end),
+    awful.key({ modkey, "Shift"   }, "Left", function () awful.util.spawn("ncmpcpp prev") end),
+    awful.key({ modkey, "Shift"   }, "Right", function () awful.util.spawn("ncmpcpp next") end),
 
     -- Shifty keys
     awful.key({ modkey, "Control" }, "t", function() shifty.add({ rel_index = 1 }) end),
