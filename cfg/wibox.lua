@@ -73,21 +73,6 @@ vicious.register(cpu_bar, vicious.widgets.cpu,
     end, 2
 )
 
-batt_info = {}
-batt_text = widget({ type = "textbox" })
-vicious.register(batt_text, vicious.widgets.bat,
-    function(widget, args)
-        batt_info.state = args[1]
-        batt_info.level = args[2]
-        batt_info.remaining = args[3]
-        if batt_info.state == "-" or batt_info.state == "+" then
-            return " " .. args[3]
-        else
-            return nil
-        end
-    end, 5, "BAT0"
-)
-
 volume_icon = widget({ type = "imagebox" })
 volume_icon.image = image(volume_get_icon(get_volume()))
 
@@ -115,6 +100,21 @@ volume_icon:buttons(awful.util.table.join(
     awful.button({}, 2, volume_mute_and_update),
     awful.button({}, 4, volume_up_and_update),
     awful.button({}, 5, volume_down_and_update))
+)
+
+batt_info = {}
+batt_text = widget({ type = "textbox" })
+vicious.register(batt_text, vicious.widgets.bat,
+    function(widget, args)
+        batt_info.state = args[1]
+        batt_info.level = args[2]
+        batt_info.remaining = args[3]
+        if batt_info.state == "-" or batt_info.state == "+" then
+            return " " .. args[3]
+        else
+            return nil
+        end
+    end, 5, "BAT0"
 )
 
 batt_icon = widget({ type = "imagebox" })
