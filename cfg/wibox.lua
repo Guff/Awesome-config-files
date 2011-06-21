@@ -7,6 +7,33 @@ require("cfg.menu")
 mytextclock = widget({ type = "textbox" })
 vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
 
+wifi_info = { ssid = "N/A" }
+wifi_text = widget({ type = "textbox" })
+
+wifi_icon = widget({ type = "imagebox" })
+
+function update_wifi_icon()
+    local icon_dir = awful.util.getdir("config") .. "/icons/wireless-"
+    local icon_str = "disconnected"
+    if wifi_info.ssid ~= "N/A" then
+        if wifi_info.qual >= 75 then icon_str = "full"
+        elseif wifi_info.qual >= 50 then icon_str = "high"
+        elseif wifi_info.qual >= 25 then icon_str = "medium"
+        elseif wifi_info.qual > 0 then icon_str = "low"
+        else icon_str = "none" end
+    end
+    wifi_icon.image = image(icon_dir .. icon_str .. ".png")
+end
+
+vicious.register(wifi_text, vicious.widgets.wifi, 
+    function(widget, args)
+        wifi_info.ssid = args["{ssid}"]
+        wifi_info.qual = args["{linp}"]
+        update_wifi_icon()
+        return wifi_info.qual .. "%"
+    end, 1, "wlan0")
+update_wifi_icon()
+
 myweather = widget({ type = "textbox" })
 wdata = { tempf = "N/A", }
 -- Need to siphon off the data for use in the tooltips later
@@ -203,6 +230,10 @@ awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = f
     timeout = 1
 })
 
+awful.tooltip({ objects = { wifi_icon, }, timer_function = function()
+    return string.format("%s: %d%%", wifi_info.ssid, wifi_info.qual)
+end, timeout = 1 })
+
 awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function()
     return string.format("<big><b>Winter Haven, FL</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s, "
         .. "%s°\n<b>Humidity:</b> %s%%", os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
@@ -356,6 +387,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         batt_text,
         batt_icon,
+        wifi_icon,
         volume_icon,
         s == 1 and mysystray or nil,
         mem_bar.widget,

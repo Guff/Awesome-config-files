@@ -49,7 +49,7 @@ theme.batt_dying = "#FC5D44"
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = theme_base .. "submenu.png"
-theme.menu_height   = "13"
+theme.menu_height   = "10"
 theme.menu_width    = "120"
 
 -- You can add as many variables as
