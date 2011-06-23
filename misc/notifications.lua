@@ -38,16 +38,19 @@ end
 
 -- Volume notifications
 
+-- Each of these functions returns the current volume, so that it can be used
+-- by my volume icon widget to update its icon. It's not necessary for the
+-- notifications alone, however
 function volume_down()
-    volume_adjust(-5)
+    return volume_adjust(-5)
 end
 
 function volume_up()
-    volume_adjust(5)
+    return volume_adjust(5)
 end
 
 function volume_mute()
-    volume_adjust(0)
+    return volume_adjust(0)
 end
 
 function get_volume()
@@ -72,6 +75,7 @@ function volume_adjust(inc)
     local is_muted = get_muted()
     if is_muted then volume = 0 end
     vol_notification = fancy_notify(volume, volume_get_icon, vol_notification)
+    return volume
 end
 
 function volume_get_icon(volume)

@@ -103,23 +103,23 @@ vicious.register(cpu_bar, vicious.widgets.cpu,
 volume_icon = widget({ type = "imagebox" })
 volume_icon.image = image(volume_get_icon(get_volume()))
 
-function update_volume_icon()
-    volume_icon.image = image(volume_get_icon(get_volume()))
+function update_volume_icon(volume)
+    volume_icon.image = image(volume_get_icon(volume))
 end
 
 function volume_up_and_update()
-    volume_up()
-    update_volume_icon()
+    local volume = volume_up()
+    update_volume_icon(volume)
 end
 
 function volume_down_and_update()
-    volume_down()
-    update_volume_icon()
+    local volume = volume_down()
+    update_volume_icon(volume)
 end
 
 function volume_mute_and_update()
-    volume_mute()
-    update_volume_icon()
+    local volume = volume_mute()
+    update_volume_icon(volume)
 end
 
 volume_icon:buttons(awful.util.table.join(
