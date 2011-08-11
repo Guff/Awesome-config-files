@@ -33,7 +33,7 @@ shifty.config.tags = {
 local tags = shifty.config.tags
 
 shifty.config.apps = {
-    { match = { "Firefox.*" }, tag = mytags[1], },
+    { match = { "Firefox.*", "xchat", "liferea", }, tag = mytags[1], },
     { match = { "geany" }, tag = mytags[2], },
     { match = { "gimp%-toolbox" }, float = false, tag = mytags[7], slave = false, },
     { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },

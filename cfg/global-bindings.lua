@@ -4,11 +4,11 @@ globalkeys = awful.util.table.join(
     -- Special function keys
     awful.key({ }, "XF86MonBrightnessUp", brightness_up),
     awful.key({ }, "XF86MonBrightnessDown", brightness_down),
-    awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("slimlock") end),
+    awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
     awful.key({ }, "XF86AudioLowerVolume", volume_down_and_update),
     awful.key({ }, "XF86AudioRaiseVolume", volume_up_and_update),
     awful.key({ }, "XF86AudioMute", volume_mute_and_update),
-	awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
     
     -- MPD keys
     awful.key({ modkey, "Shift"   }, "Up", function () awful.util.spawn("ncmpcpp toggle") end),
@@ -106,10 +106,12 @@ globalkeys = awful.util.table.join(
     -- all minimized clients are restored 
     awful.key({ modkey, "Shift"   }, "n", 
         function()
-            local tag = awful.tag.selected()
-                for i=1, #tag:clients() do
-                    tag:clients()[i].minimized=false
-                    tag:clients()[i]:redraw()
+            local tags = awful.tag.selectedlist()
+            for j=1, #tags do
+                for i=1, #tags[j]:clients() do
+                    tags[j]:clients()[i].minimized=false
+                    tags[j]:clients()[i]:redraw()
+                end
             end
         end),
     -- show desktop/unminimize

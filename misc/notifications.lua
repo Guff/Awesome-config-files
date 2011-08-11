@@ -55,7 +55,7 @@ end
 
 function get_volume()
     return tonumber(
-        awful.util.pread("amixer -c0 get Master | grep -om1 '[[:digit:]]*%' | tr -d %")
+        string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
     )
 end
 
@@ -69,10 +69,13 @@ function volume_adjust(inc)
     if inc < 0 then inc = math.abs(inc) .. "%-"
     elseif inc > 0 then inc = inc .. "%+"
     else inc = "toggle" end
-    os.execute("amixer -c0 set Master " .. inc .. " > /dev/null 2>&1")
-
-    local volume = get_volume()
-    local is_muted = get_muted()
+    local volume, is_muted =
+		string.match(awful.util.pread("amixer -c0 set Master " .. inc),
+					 "(%d+)%%.*%[(%a+)%]")
+	is_muted = is_muted == "off"
+	volume = tonumber(volume)
+    --local volume = get_volume()
+    --local is_muted = get_muted()
     if is_muted then volume = 0 end
     vol_notification = fancy_notify(volume, volume_get_icon, vol_notification)
     return volume

@@ -266,7 +266,7 @@ function add_calendar(inc_offset)
     datespec = (datespec % 12 + 1) .. " " .. math.floor(datespec / 12)
     local cal = awful.util.pread("cal -m " .. datespec)
     cal = string.gsub(cal, "^%s*(.-)%s*$", "%1")
-    cal = string.gsub(cal, today .. "[ \n]",
+    cal = string.gsub(cal, "([^%d]" .. today .. "[ \n])",
         '<span bgcolor="white" fgcolor="#61645B">%1</span>', 1)
     calendar = naughty.notify({
         text = string.format('<span font_desc="%s">%s</span>', "monospace",
@@ -378,7 +378,7 @@ for s = 1, screen.count() do
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-			mylauncher,
+            --mylauncher,
             mytaglist[s],
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
