@@ -1,0 +1,6 @@
+==README==
+This is my awesome wm config, originaly based on Guff's config
+
+==Dependencies==
+Vicious Widget library http://git.sysphere.org/vicious/
+Awesome freedesktop menu https://github.com/terceiro/awesome-freedesktop/tree
