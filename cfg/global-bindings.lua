@@ -23,13 +23,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "w",           shifty.del),
     
     -- Launch my terminal setup
-    awful.key({ modkey,           }, "g",
-        function()
-            awful.util.spawn("sakura")
-            awful.util.spawn("sakura -f \"Terminus (TTF) 9\"")
-            awful.util.spawn("sakura -f \"Terminus (TTF) 9\"")
-        end
-    ),
+    awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
+
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
