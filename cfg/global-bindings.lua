@@ -1,4 +1,4 @@
-require("misc.dict")
+-- require("misc.dict")
 
 globalkeys = awful.util.table.join(
     -- Special function keys
@@ -75,25 +75,25 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    awful.key({ modkey,           }, ";",
-        function ()
-            awful.prompt.run({ prompt = "Dict: " }, mypromptbox[mouse.screen].widget,
-            function(word)
-                local definition = awful.util.pread("dict " .. word .. " 2>&1")
-                naughty.notify({ text = definition, timeout = 13, title = word,
-                    width = 400, font = "Sans 7" })
-            end, dict_cb, awful.util.getdir("cache") .. "/dict")
-        end
-    ),
-    awful.key({ modkey, "Control" }, ";",
-        function ()
-            if selection() then
-                definition = awful.util.pread("dict " .. selection() .. " 2>&1")
-                naughty.notify({ text = definition, timeout = 13,
-                    title = selection(), width = 400, font = "Sans 7" })
-            end
-        end
-    ),
+    -- awful.key({ modkey,           }, ";",
+        -- function ()
+            -- awful.prompt.run({ prompt = "Dict: " }, mypromptbox[mouse.screen].widget,
+            -- function(word)
+                -- local definition = awful.util.pread("dict " .. word .. " 2>&1")
+                -- naughty.notify({ text = definition, timeout = 13, title = word,
+                    -- width = 400, font = "Sans 7" })
+            -- end, dict_cb, awful.util.getdir("cache") .. "/dict")
+        -- end
+    -- ),
+    -- awful.key({ modkey, "Control" }, ";",
+        -- function ()
+            -- if selection() then
+                -- definition = awful.util.pread("dict " .. selection() .. " 2>&1")
+                -- naughty.notify({ text = definition, timeout = 13,
+                    -- title = selection(), width = 400, font = "Sans 7" })
+            -- end
+        -- end
+    --),
     awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
