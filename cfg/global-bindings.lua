@@ -5,9 +5,9 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86MonBrightnessUp", brightness_up),
     awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
-    awful.key({ }, "XF86AudioLowerVolume", volume_down_and_update),
-    awful.key({ }, "XF86AudioRaiseVolume", volume_up_and_update),
-    awful.key({ }, "XF86AudioMute", volume_mute_and_update),
+    awful.key({ }, "#122", volume_down_and_update),
+    awful.key({ }, "#123", volume_up_and_update),
+    awful.key({ }, "#121", volume_mute_and_update),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
     
     -- MPD keys
