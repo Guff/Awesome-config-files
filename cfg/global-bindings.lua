@@ -2,8 +2,9 @@
 
 globalkeys = awful.util.table.join(
     -- Special function keys
-    awful.key({ }, "XF86MonBrightnessUp", brightness_up),
-    awful.key({ }, "XF86MonBrightnessDown", brightness_down),
+    -- Briteness is controled by hardware on this laptop
+    -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
+    -- awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
     awful.key({ }, "#122", volume_down_and_update),
     awful.key({ }, "#123", volume_up_and_update),
