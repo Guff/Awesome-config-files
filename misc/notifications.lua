@@ -66,7 +66,7 @@ end
 
 local vol_notification = nil
 function volume_adjust(inc)
-    local inc_value
+    local inc_value = inc
     if inc < 0 
       then inc_value = math.abs(inc) .. "%-"
     elseif inc > 0 
@@ -74,7 +74,7 @@ function volume_adjust(inc)
     else 
       inc_value = "toggle" 
     end
-		awful.util.pread("amixer -c0 set \"Master Front\"" .. inc_value)
+		awful.util.pread("amixer -c0 set \"Master Front\" " .. inc_value)
     local volume = get_volume()
     local is_muted = get_muted()
     if is_muted 
