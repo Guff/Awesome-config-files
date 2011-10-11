@@ -70,7 +70,7 @@ function volume_adjust(inc)
     elseif inc > 0 then inc = inc .. "%+"
     else inc = "toggle" end
     local volume, is_muted =
-		string.match(awful.util.pread("amixer -c0 set Master Front" .. inc),
+		string.match(awful.util.pread("amixer -c0 set \"Master Front\"" .. inc),
 					 "(%d+)%%.*%[(%a+)%]")
 	is_muted = is_muted == "off"
 	volume = tonumber(volume)
