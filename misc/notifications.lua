@@ -81,7 +81,7 @@ function volume_adjust(inc)
       then volume = 0 
     end
     vol_notification = fancy_notify(volume, volume_get_icon, vol_notification)
-    return inc_value
+    return volume
 end
 
 function volume_get_icon(volume)
