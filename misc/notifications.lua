@@ -66,19 +66,22 @@ end
 
 local vol_notification = nil
 function volume_adjust(inc)
-    if inc < 0 then inc = math.abs(inc) .. "%-"
-    elseif inc > 0 then inc = inc .. "%+"
-    else inc = "toggle" end
-    local volume, is_muted =
-		string.match(awful.util.pread("amixer -c0 set \"Master Front\"" .. inc),
-					 "(%d+)%%.*%[(%a+)%]")
-	is_muted = is_muted == "off"
-	volume = tonumber(volume)
-    --local volume = get_volume()
-    --local is_muted = get_muted()
-    if is_muted then volume = 0 end
+    local inc_value
+    if inc < 0 
+      then inc_value = math.abs(inc) .. "%-"
+    elseif inc > 0 
+      then inc_value = inc .. "%+"
+    else 
+      inc_value = "toggle" 
+    end
+		awful.util.pread("amixer -c0 set \"Master Front\"" .. inc_value)
+    local volume = get_volume()
+    local is_muted = get_muted()
+    if is_muted 
+      then volume = 0 
+    end
     vol_notification = fancy_notify(volume, volume_get_icon, vol_notification)
-    return volume
+    return inc_value
 end
 
 function volume_get_icon(volume)
