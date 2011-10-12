@@ -34,19 +34,7 @@ local tags = shifty.config.tags
 
 shifty.config.apps = {
     { match = { "Firefox.*", "xchat", "liferea", }, tag = mytags[1], },
-    { match = { "geany" }, tag = mytags[2], },
-    { match = { "gimp%-toolbox" }, float = false, tag = mytags[7], slave = false, },
-    { match = { "gimp%-image%-window" }, tag = mytags[7], slave = true, },
-    { match = { "color%-dialog" }, float = true, },
     -- Heck, if it has dialog in the name, safe to assume it should float
-    { match = { ".*dialog.*" }, float = true, },
-    { match = { "inkscape", "Blender" }, tag = mytags[7], maximized_horizontal = true,
-      maximized_vertical = true, },
-    { match = { "devhelp", "evince" }, tag = mytags[4], maximized_horizontal = true,
-      maximized_vertical = true, },  
-    { match = { "banshee", "totem", "gmpc", "vlc", }, tag = mytags[5], },
-    { match = { "sakura", }, tag = mytags[3], },
-    { match = { "Pidgin", "File Operation Progress", "pinentry", "Thunderbird", },
         float = true, },
     { match = { "" }, buttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
