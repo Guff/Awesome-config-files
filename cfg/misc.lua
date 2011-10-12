@@ -1,8 +1,8 @@
 -- This is used later as the default terminal and editor to run.
-terminal = "lxterminal"
+terminal = "urxvt"
 editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "firefox"
+browser = "luakit"
 
 modkey = "Mod4"
 
