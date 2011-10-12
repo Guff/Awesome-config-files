@@ -12,7 +12,7 @@ layouts =
     awful.layout.suit.magnifier
 }
 
-mytags = { "☉", "⌨", "☐", "☷", "♪", "⚈", "⌘", "⌥" }
+mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
 
 -- All have init = true, because trying to move a client to a not-yet-created
 -- tag seems to be problematic, i.e. takes two attempts
