@@ -34,8 +34,6 @@ local tags = shifty.config.tags
 
 shifty.config.apps = {
     { match = { "Firefox.*", "xchat", "liferea", }, tag = mytags[1], },
-    -- Heck, if it has dialog in the name, safe to assume it should float
-        float = true, },
     { match = { "" }, buttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
         awful.button({ modkey }, 1, awful.mouse.client.move),
