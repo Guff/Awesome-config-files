@@ -24,8 +24,7 @@ shifty.config.tags = {
     [mytags[4]] = { position = 4, init = true, layout = "tiletop", },
     [mytags[5]] = { position = 5, },
     [mytags[6]] = { position = 6, },
-    [mytags[7]] = { position = 7, mwfact = 0.1943359375,
-                    layout = "tileleft", },
+    [mytags[7]] = { position = 7, mwfact = 0.1943359375, layout = "tileleft", },
     [mytags[8]] = { position = 8, },
     
 }
