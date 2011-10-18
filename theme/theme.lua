@@ -86,7 +86,7 @@ theme.titlebar_maximized_button_focus_active =
 	theme_base .. "titlebar/maximized_focus_active.png"
 
 -- You can use your own command to set your wallpaper
-theme.wallpaper_cmd = { "awsetbg " .. awful.util.getdir("config") .. "/theme/snail.png" }
+theme.wallpaper_cmd = { "awsetbg -a " .. awful.util.getdir("config") .. "/theme/defender.jpg" }
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = theme_base .. "layouts/fairh.png"
