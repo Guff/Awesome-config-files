@@ -35,12 +35,12 @@ vicious.register(wifi_text, vicious.widgets.wifi,
 update_wifi_icon()
 
 myweather = widget({ type = "textbox" })
-wdata = { tempf = "N/A", }
+wdata = { tempc = "N/A", }
 -- Need to siphon off the data for use in the tooltips later
 vicious.register(myweather, vicious.widgets.weather,
     function(widget, args)
-        if args["{tempf}"] ~= "N/A" then
-            wdata.tempf = args["{tempf}"]
+        if args["{tempc}"] ~= "N/A" then
+            wdata.tempc = args["{tempc}"]
         end
         wdata.weather = args["{weather}"]
         wdata.sky = args["{sky}"]
@@ -48,7 +48,7 @@ vicious.register(myweather, vicious.widgets.weather,
         wdata.wind = args["{windmph}"]
         wdata.wind_dir = args["{wind}"]
         wdata.humidity = args["{humid}"]
-        return wdata.tempf .. "° "
+        return wdata.tempc .. "° "
     end, 600, "LPPR")
 
 fs_info = {}
@@ -237,7 +237,7 @@ end, timeout = 1 })
 awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function()
     return string.format("<big><b>%s, PT</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s, "
         .. "%s°\n<b>Humidity:</b> %s%%", wdata.city, os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
-        wdata.weather, wdata.tempf, wdata.humidity)
+        wdata.weather, wdata.tempc, wdata.humidity)
     end, timeout = 1 })
     
 awful.tooltip({ objects = { volume_icon, }, timer_function = function()
