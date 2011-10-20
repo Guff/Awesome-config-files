@@ -235,8 +235,8 @@ awful.tooltip({ objects = { wifi_icon, }, timer_function = function()
 end, timeout = 1 })
 
 awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function()
-    return string.format("<big><b>%s, PT</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n%s, "
-        .. "%s°\n<b>Humidity:</b> %s%%", wdata.city, os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
+    return string.format("<big><b>%s, PT</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n<b>Weather:</b> %s\n"
+        .. "<b>Temp:</b> %s°\n<b>Humidity:</b> %s%%", wdata.city, os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
         wdata.weather, wdata.tempc, wdata.humidity)
     end, timeout = 1 })
     
