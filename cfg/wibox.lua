@@ -49,7 +49,7 @@ vicious.register(myweather, vicious.widgets.weather,
         wdata.wind_dir = args["{wind}"]
         wdata.humidity = args["{humid}"]
         return wdata.tempf .. "° "
-    end, 600, "KGIF")
+    end, 600, "LPPR")
 
 fs_info = {}
 fsdummy = widget({ type = "textbox" })
