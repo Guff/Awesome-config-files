@@ -74,7 +74,7 @@ function volume_adjust(inc)
     else 
       inc_value = "toggle" 
     end
-		awful.util.pread("amixer -c0 set \"Master Front\" " .. inc_value)
+		awful.util.pread("amixer -c0 set \"Master\" " .. inc_value)
     local volume = get_volume()
     local is_muted = get_muted()
     if is_muted 
