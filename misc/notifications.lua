@@ -55,12 +55,12 @@ end
 
 function get_volume()
     return tonumber(
-        string.match(awful.util.pread("amixer -c0 get \"Master Front\""), "(%d+)%%")
+        string.match(awful.util.pread("amixer -c0 get \"Master\""), "(%d+)%%")
     )
 end
 
 function get_muted()
-    return string.find(awful.util.pread("amixer -c0 get \"Master Front\""),
+    return string.find(awful.util.pread("amixer -c0 get \"Master\""),
                        '%[on%]') == nil
 end
 
@@ -74,7 +74,7 @@ function volume_adjust(inc)
     else 
       inc_value = "toggle" 
     end
-		awful.util.pread("amixer -c0 set \"Master Front\" " .. inc_value)
+		awful.util.pread("amixer -c0 set \"Master\" " .. inc_value)
     local volume = get_volume()
     local is_muted = get_muted()
     if is_muted 
