@@ -18,10 +18,10 @@ mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
 -- tag seems to be problematic, i.e. takes two attempts
 shifty.config.tags = {
     [mytags[1]] = { position = 1, init = true, layout = "tile", },
-    [mytags[2]] = { position = 2, init = true, layout = "tile", },
-    [mytags[3]] = { position = 3, init = true, layout = "tilebottom",
+    [mytags[2]] = { position = 2, layout = "tile", },
+    [mytags[3]] = { position = 3, layout = "tilebottom",
                     mwfact = 0.7, },
-    [mytags[4]] = { position = 4, init = true, layout = "tiletop", },
+    [mytags[4]] = { position = 4, layout = "tiletop", },
     [mytags[5]] = { position = 5, layout = "tile" },
     [mytags[6]] = { position = 6, layout = "tile" },
     [mytags[7]] = { position = 7, mwfact = 0.1943359375, layout = "tileleft", },
