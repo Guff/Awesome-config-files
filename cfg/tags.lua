@@ -35,7 +35,7 @@ shifty.config.apps = {
     -- Force luakit on tag 2
     { match = { "luakit" }, tag = mytags[2], },
     -- Make MPlayer float
-    { match = { "MPlayer" }, float = true, }, 
+    { match = { "mplayer2" }, float = true, },
     { match = { "" }, buttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
         awful.button({ modkey }, 1, awful.mouse.client.move),
