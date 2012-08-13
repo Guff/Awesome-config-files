@@ -1,5 +1,5 @@
 -- widgets
-require("vicious")
+vicious = require("vicious")
 require("misc.notifications")
 -- freedesktop menu
 require("cfg.menu")
