@@ -10,7 +10,7 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "#123", volume_up_and_update),
     awful.key({ }, "#121", volume_mute_and_update),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
-    
+
     -- MPD keys
     awful.key({ modkey, "Shift"   }, "Up", function () awful.util.spawn("ncmpcpp toggle") end),
     awful.key({ modkey, "Shift"   }, "Down", function () awful.util.spawn("ncmpcpp stop") end),
@@ -22,7 +22,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "t", function() shifty.add({ rel_index = 1, nopopup = true }) end),
     awful.key({ modkey, "Control" }, "g",           shifty.rename),
     awful.key({ modkey, "Control" }, "w",           shifty.del),
-    
+
     -- Launch my terminal setup
     awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -97,8 +97,8 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
-    -- all minimized clients are restored 
-    awful.key({ modkey, "Shift"   }, "n", 
+    -- all minimized clients are restored
+    awful.key({ modkey, "Shift"   }, "n",
         function()
             local tags = awful.tag.selectedlist()
             for j=1, #tags do
@@ -109,7 +109,7 @@ globalkeys = awful.util.table.join(
             end
         end),
     -- show desktop/unminimize
-    awful.key({ modkey            }, "d", 
+    awful.key({ modkey            }, "d",
         function()
             local tag = awful.tag.selected()
             for i=1, #tag:clients() do
@@ -122,7 +122,6 @@ globalkeys = awful.util.table.join(
 )
 
 for i=1, ( shifty.config.maxtags or 9 ) do
-  
     globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey }, i,
         function ()
             local t = awful.tag.viewonly(shifty.getpos(i))
