@@ -72,7 +72,8 @@ mem_bar:set_vertical(true)
 mem_bar:set_background_color("#494B4F")
 mem_bar:set_border_color("#000000")
 mem_bar:set_color("#AECF96")
-mem_bar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
+-- This method does not exist anymore
+--mem_bar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 
 mem_info = {}
 vicious.register(mem_bar, vicious.widgets.mem, 
@@ -91,7 +92,7 @@ vicious.register(mem_bar, vicious.widgets.mem,
 cpu_bar = awful.widget.progressbar()
 cpu_bar:set_width(8):set_height(18):set_vertical(true)
 cpu_bar:set_background_color("#494b4f"):set_border_color("#000000")
-cpu_bar:set_color("#AD8488"):set_gradient_colors({ "#AD8488", "#964C53", "#FF3548" })
+cpu_bar:set_color("#AD8488")--:set_gradient_colors({ "#AD8488", "#964C53", "#FF3548" })
 
 cpu_info = {}
 vicious.register(cpu_bar, vicious.widgets.cpu,
