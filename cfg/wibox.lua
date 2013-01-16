@@ -24,7 +24,7 @@ function update_wifi_icon()
         elseif wifi_info.qual > 0 then icon_str = "low"
         else icon_str = "none" end
     end
-    wifi_icon.image = image(icon_dir .. icon_str .. ".png")
+    wifi_icon:set_image(icon_dir .. icon_str .. ".png")
 end
 
 vicious.register(wifi_text, vicious.widgets.wifi, 
@@ -106,7 +106,7 @@ volume_icon = wibox.widget.imagebox()
 volume_icon:set_image(volume_get_icon(get_volume()))
 
 function update_volume_icon(volume)
-    volume_icon.image = image(volume_get_icon(volume))
+    volume_icon:set_image(volume_get_icon(volume))
 end
 
 function volume_up_and_update()
