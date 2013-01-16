@@ -4,13 +4,15 @@ require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
 
-mytextclock = widget({ type = "textbox" })
-vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %l:%M %p")
+local wibox = require("wibox")
+
+mytextclock = wibox.widget.textbox()
+vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %I:%M %p")
 
 wifi_info = { ssid = "N/A" }
-wifi_text = widget({ type = "textbox" })
+wifi_text = wibox.widget.textbox()
 
-wifi_icon = widget({ type = "imagebox" })
+wifi_icon = wibox.widget.imagebox()
 
 function update_wifi_icon()
     local icon_dir = awful.util.getdir("config") .. "/icons/wireless-"
@@ -34,7 +36,7 @@ vicious.register(wifi_text, vicious.widgets.wifi,
     end, 1, "wlan0")
 update_wifi_icon()
 
-myweather = widget({ type = "textbox" })
+myweather = wibox.widget.textbox()
 wdata = { tempc = "N/A", }
 -- Need to siphon off the data for use in the tooltips later
 vicious.register(myweather, vicious.widgets.weather,
@@ -52,7 +54,7 @@ vicious.register(myweather, vicious.widgets.weather,
     end, 600, "LPPR")
 
 fs_info = {}
-fsdummy = widget({ type = "textbox" })
+fsdummy = wibox.widget.textbox()
 vicious.register(fsdummy, vicious.widgets.fs,
     function(widget, args)
         fs_info.rootsize = args["{/ size_gb}"]
@@ -100,8 +102,8 @@ vicious.register(cpu_bar, vicious.widgets.cpu,
     end, 2
 )
 
-volume_icon = widget({ type = "imagebox" })
-volume_icon.image = image(volume_get_icon(get_volume()))
+volume_icon = wibox.widget.imagebox()
+volume_icon:set_image(volume_get_icon(get_volume()))
 
 function update_volume_icon(volume)
     volume_icon.image = image(volume_get_icon(volume))
@@ -130,22 +132,23 @@ volume_icon:buttons(awful.util.table.join(
 )
 
 batt_info = {}
-batt_text = widget({ type = "textbox" })
+batt_text = wibox.widget.textbox()
 vicious.register(batt_text, vicious.widgets.bat,
     function(widget, args)
         batt_info.state = args[1]
         batt_info.level = args[2]
         batt_info.remaining = args[3]
-        if batt_info.state == "-" or batt_info.state == "+" then
-            return " " .. args[3]
-        else
-            return nil
-        end
+        --if batt_info.state == "-" or batt_info.state == "+" then
+        return " " .. args[3]
+          --return "Blah"
+        --else
+            --return nil
+        --end
     end, 5, "BAT0"
 )
 
-batt_icon = widget({ type = "imagebox" })
-batt_icon_image = image(awful.util.getdir("config") .. "/icons/batticon.png")
+batt_icon = wibox.widget.imagebox()
+batt_icon:set_image(awful.util.getdir("config") .. "/icons/batticon.png")
 -- surprised this isn't in lua's math library
 local function round(x)
     if x - math.floor(x) >= 0.5 then return math.ceil(x) else return math.floor(x) end
