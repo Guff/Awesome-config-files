@@ -301,7 +301,7 @@ mytextclock:buttons(awful.util.table.join(
 
 
 -- Create a systray
-mysystray = widget({ type = "systray" })
+mysystray = wibox.widget.systray()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
