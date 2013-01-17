@@ -158,7 +158,7 @@ end
 function update_batt_icon()
     batt_icon.image = batt_icon_image
     local off_x, off_y = 1, { top = 3, bot = 1 }
-    local w, h = batt_icon.image.width, batt_icon.image.height
+    local w, h = batt_icon.width, batt_icon.height
     local color = beautiful.batt_ok
     if batt_info.level > 30 then color = beautiful.batt_ok
     elseif batt_info.level > 10 then color = beautiful.batt_danger
