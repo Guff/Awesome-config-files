@@ -61,6 +61,7 @@ vicious.register(fsdummy, vicious.widgets.fs,
         fs_info.homesize = args["{/home size_gb}"]
         fs_info.rootfree = args["{/ avail_gb}"]
         fs_info.homefree = args["{/home avail_gb}"]
+        return 60
     end, 60
 )
 
