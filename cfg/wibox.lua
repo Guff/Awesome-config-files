@@ -213,8 +213,8 @@ local sysmon_buttons = awful.button({}, 1,
     end
 )
 
-mem_bar.widget:buttons(sysmon_buttons)
-cpu_bar.widget:buttons(sysmon_buttons)
+mem_bar:buttons(sysmon_buttons)
+cpu_bar:buttons(sysmon_buttons)
 
 awful.tooltip({ objects = { batt_icon, batt_text }, timer_function = function()
     return string.format("<big>Battery:</big>\n<b>Level:</b> %s%%\n<b>State:</b> %s\n<b>"
