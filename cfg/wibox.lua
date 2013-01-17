@@ -175,7 +175,7 @@ function update_batt_icon()
 end
 
 batt_timer = timer({ timeout = 5 })
-batt_timer:add_signal("timeout", update_batt_icon)
+batt_timer:connect_signal("timeout", update_batt_icon)
 batt_timer:start()
 
 local batt_buttons = awful.util.table.join(
