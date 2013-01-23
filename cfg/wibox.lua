@@ -6,23 +6,6 @@ require("misc.notifications")
 
 local wibox = require("wibox")
 
-myweather = wibox.widget.textbox()
-wdata = { tempc = "N/A", }
--- Need to siphon off the data for use in the tooltips later
-vicious.register(myweather, vicious.widgets.weather,
-    function(widget, args)
-        if args["{tempc}"] ~= "N/A" then
-            wdata.tempc = args["{tempc}"]
-        end
-        wdata.weather = args["{weather}"]
-        wdata.sky = args["{sky}"]
-        wdata.city = args["{city}"]
-        wdata.wind = args["{windmph}"]
-        wdata.wind_dir = args["{wind}"]
-        wdata.humidity = args["{humid}"]
-        return wdata.tempc .. "° "
-    end, 600, "LPPR")
-
 fs_info = {}
 fsdummy = wibox.widget.textbox()
 vicious.register(fsdummy, vicious.widgets.fs,
