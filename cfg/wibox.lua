@@ -66,52 +66,42 @@ mytasklist.buttons = awful.util.table.join(
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+    mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-        awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-        awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-        awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-        awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end))
+      awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+      awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+      awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+      awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end))
     )
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.noempty, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(
-        function(c)
-            return awful.widget.tasklist.label.currenttags(c, s)
-        end, mytasklist.buttons
-    )
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.currenttags, mytasklist.buttons)
+
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", height="18", screen = s })
-    -- Space out a few widgets
-    
-    -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            --mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        
-        mylayoutbox[s],
-        batt_text,
-        batt_icon,
-        wifi_icon,
-        volume_icon,
-        s == 1 and mysystray or nil,
-        mem_bar.widget,
-        cpu_bar.widget,
-        mytextclock,
-        myweather,
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
-        
-    }
+
+    -- Widgets that go on the left side of the bar, such as the taglist and the the promptbox
+    local left_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(mytaglist[s])
+    left_layout:add(mypromptbox[s])
+
+    -- Widgets that go on the right, such as the layoutbox
+    local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(mylayoutbox[s])
+
+    -- Join the widgets, with the tasklist in the middle
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_middle(mytasklist[s])
+    layout:set_right(right_layout)
+
+    -- Set it all on the wibox
+    mywibox[s]:set_widget(layout)
 end
 
 shifty.taglist = mytaglist
