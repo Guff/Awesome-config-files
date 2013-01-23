@@ -19,40 +19,49 @@ mytaglist.buttons = awful.util.table.join(
 )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-    awful.button({ }, 1,
-        function (c)
-            if not c:isvisible() then awful.tag.viewonly(c:tags()[1]) end
-            if client.focus == c then
-                c.minimized = not c.minimized
-            else
-                client.focus = c
-                c:raise()
-            end
+  awful.button({ }, 1,
+    function (c)
+      if client.focus == c then
+        c.minimized = true
+      else
+        -- Without this, the following :ivisible() makes no sense
+        c.minimized = false
+        if not c:visible() then
+          awful.tag.viewonly(c:tags()[1])
         end
-    ),
-    awful.button({ }, 2, function (c) c:kill() end),
-    awful.button({ }, 3,
-        function ()
-            if instance then
-                instance:hide()
-                instance = nil
-            else
-                instance = awful.menu.clients({ width=250 })
-            end
-        end
-    ),
-    awful.button({ }, 4,
-        function ()
-            awful.client.focus.byidx(1)
-                if client.focus then client.focus:raise() end
-        end
-    ),
-    awful.button({ }, 5,
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end
-    )
+        -- This will also un-minimize the client, if needed
+        client.focus = c
+        c:raise()
+      end
+    end
+  ),
+  awful.button({ }, 2, function (c) c:kill() end),
+  awful.button({ }, 3,
+    function ()
+      if instance then
+        instance:hide()
+        instance = nil
+      else
+        instance = awful.menu.clients({ width=250 })
+      end
+    end
+  ),
+  awful.button({ }, 4,
+    function ()
+      awful.client.focus.byidx(1)
+      if client.focus then
+        client.focus:raise()
+      end
+    end
+  ),
+  awful.button({ }, 5,
+    function ()
+      awful.client.focus.byidx(-1)
+      if client.focus then
+        client.focus:raise()
+      end
+    end
+  )
 )
 
 for s = 1, screen.count() do
