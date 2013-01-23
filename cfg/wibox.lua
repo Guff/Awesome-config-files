@@ -6,51 +6,6 @@ require("misc.notifications")
 
 local wibox = require("wibox")
 
---cputext = widget( { type = "textbox" })
---vicious.register(cputext, vicious.widgets.cpu, "$1%", 2) 
-cpu_bar = awful.widget.progressbar()
-cpu_bar:set_width(8):set_height(18):set_vertical(true)
-cpu_bar:set_background_color("#494b4f"):set_border_color("#000000")
-cpu_bar:set_color("#AD8488")--:set_gradient_colors({ "#AD8488", "#964C53", "#FF3548" })
-
-cpu_info = {}
-vicious.register(cpu_bar, vicious.widgets.cpu,
-    function(widget, args)
-        cpu_info.load1 = args[1]
-        cpu_info.load2 = args[2]
-        return (cpu_info.load1 + cpu_info.load2) / 2
-    end, 2
-)
-
-volume_icon = wibox.widget.imagebox()
-volume_icon:set_image(volume_get_icon(get_volume()))
-
-function update_volume_icon(volume)
-    volume_icon:set_image(volume_get_icon(volume))
-end
-
-function volume_up_and_update()
-    local volume = volume_up()
-    update_volume_icon(volume)
-end
-
-function volume_down_and_update()
-    local volume = volume_down()
-    update_volume_icon(volume)
-end
-
-function volume_mute_and_update()
-    local volume = volume_mute()
-    update_volume_icon(volume)
-end
-
-volume_icon:buttons(awful.util.table.join(
-    awful.button({}, 1, function () awful.util.spawn("pavucontrol") end),
-    awful.button({}, 2, volume_mute_and_update),
-    awful.button({}, 4, volume_up_and_update),
-    awful.button({}, 5, volume_down_and_update))
-)
-
 batt_info = {}
 batt_text = wibox.widget.textbox()
 vicious.register(batt_text, vicious.widgets.bat,
