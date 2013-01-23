@@ -12,43 +12,6 @@ local sysmon_buttons = awful.button({}, 1,
     end
 )
 
-mem_bar:buttons(sysmon_buttons)
-cpu_bar:buttons(sysmon_buttons)
-
-awful.tooltip({ objects = { batt_icon, batt_text }, timer_function = function()
-    return string.format("<big>Battery:</big>\n<b>Level:</b> %s%%\n<b>State:</b> %s\n<b>"
-        .. "Time remaining:</b> %s", batt_info.level, batt_info.state, batt_info.remaining)
-    end, timeout = 10
-})
-
-awful.tooltip({ objects = { mem_bar.widget, cpu_bar.widget }, timer_function = function()
-    return string.format("<b>CPU0:</b> %s%%; <b>CPU1:</b> %s%%\n\n<b>Memory used:</b> "
-        .. "%sMB, %s%% \n<b>Memory total:</b> %sMB\n<b>Swap used:</b> %sMB\n<b>Swap total:</b> "
-        .. "%sMB\n\n<b>Filesystems</b>:\n<b>/:</b> size %sGB, free %sGB\n<b>/home:</b> size"
-        .. " %sGB, free %sGB\n%s %s", cpu_info.load1, cpu_info.load2, mem_info.usage,
-        mem_info.percent, mem_info.total, mem_info.swapused, mem_info.swaptotal,
-        fs_info.rootsize, fs_info.rootfree, fs_info.homesize, fs_info.homefree,
-        awful.util.pread('uptime | sed "s/\\(.*users\\).*/\\1/"'),
-        awful.util.pread("cut -d\" \" -f1,2,3 /proc/loadavg"))
-    end,
-    timeout = 1
-})
-
-awful.tooltip({ objects = { wifi_icon, }, timer_function = function()
-    return string.format("%s: %d%%", wifi_info.ssid, wifi_info.qual)
-end, timeout = 1 })
-
-awful.tooltip({ objects = { mytextclock, myweather, }, timer_function = function()
-    return string.format("<big><b>%s, PT</b></big>\n<b>%s</b>\n<b>Sky:</b> %s\n<b>Weather:</b> %s\n"
-        .. "<b>Temp:</b> %s°\n<b>Humidity:</b> %s%%", wdata.city, os.date("%a %b %d, %l:%M:%S %p"), wdata.sky,
-        wdata.weather, wdata.tempc, wdata.humidity)
-    end, timeout = 1 })
-    
-awful.tooltip({ objects = { volume_icon, }, timer_function = function()
-    if get_muted() then return "Volume: " .. get_volume() .. "%," .. " muted"
-    else return "Volume: " .. get_volume() .. "%" end
-end, timeout = 1 })
-
 -- Create a systray
 mysystray = wibox.widget.systray()
 
