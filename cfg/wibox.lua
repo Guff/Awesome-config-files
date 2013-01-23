@@ -6,9 +6,6 @@ require("misc.notifications")
 
 local wibox = require("wibox")
 
-mytextclock = wibox.widget.textbox()
-vicious.register(mytextclock, vicious.widgets.date, "%a %b %d, %I:%M %p")
-
 wifi_info = { ssid = "N/A" }
 wifi_text = wibox.widget.textbox()
 
