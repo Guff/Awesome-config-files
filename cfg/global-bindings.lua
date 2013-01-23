@@ -6,9 +6,9 @@ globalkeys = awful.util.table.join(
     -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
     -- awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
-    awful.key({ modkey,           }, "F7", volume_down_and_update),
-    awful.key({ modkey,           }, "F8", volume_up_and_update),
-    awful.key({ modkey,           }, "F9", volume_mute_and_update),
+    awful.key({ modkey,           }, "F7", volume_down),
+    awful.key({ modkey,           }, "F8", volume_up),
+    awful.key({ modkey,           }, "F9", volume_mute),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
 
     -- MPD keys
