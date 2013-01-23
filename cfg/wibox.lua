@@ -6,18 +6,6 @@ require("misc.notifications")
 
 local wibox = require("wibox")
 
-fs_info = {}
-fsdummy = wibox.widget.textbox()
-vicious.register(fsdummy, vicious.widgets.fs,
-    function(widget, args)
-        fs_info.rootsize = args["{/ size_gb}"]
-        fs_info.homesize = args["{/home size_gb}"]
-        fs_info.rootfree = args["{/ avail_gb}"]
-        fs_info.homefree = args["{/home avail_gb}"]
-        return 60
-    end, 60
-)
-
 mem_bar = awful.widget.progressbar()
 -- Progressbar properties
 mem_bar:set_width(8)
