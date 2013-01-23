@@ -104,5 +104,5 @@ for s = 1, screen.count() do
     mywibox[s]:set_widget(layout)
 end
 
+-- Shifty.taglist must attributed after the taglist itself its initialized
 shifty.taglist = mytaglist
-shifty.promptbox = mypromptbox
