@@ -6,29 +6,6 @@ require("misc.notifications")
 
 local wibox = require("wibox")
 
-mem_bar = awful.widget.progressbar()
--- Progressbar properties
-mem_bar:set_width(8)
-mem_bar:set_height(18)
-mem_bar:set_vertical(true)
-mem_bar:set_background_color("#494B4F")
-mem_bar:set_border_color("#000000")
-mem_bar:set_color("#AECF96")
--- This method does not exist anymore
---mem_bar:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
-
-mem_info = {}
-vicious.register(mem_bar, vicious.widgets.mem, 
-    function(widget, args)
-        mem_info.percent = args[1]
-        mem_info.usage = args[2]
-        mem_info.total = args[3]
-        mem_info.swapused = args[6]
-        mem_info.swaptotal = args[7]
-        return mem_info.percent
-    end, 10
-)
-
 --cputext = widget( { type = "textbox" })
 --vicious.register(cputext, vicious.widgets.cpu, "$1%", 2) 
 cpu_bar = awful.widget.progressbar()
