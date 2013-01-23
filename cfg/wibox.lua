@@ -118,7 +118,3 @@ end
 
 shifty.taglist = mytaglist
 shifty.promptbox = mypromptbox
-
---awful.widget.layout.margins[cpu_bar.widget] = { left = 5 }
---awful.widget.layout.margins[myweather] = { left = 5 }
---awful.widget.layout.margins[batt_icon] = { left = 2, right = 2 }
