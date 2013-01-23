@@ -6,33 +6,6 @@ require("misc.notifications")
 
 local wibox = require("wibox")
 
-wifi_info = { ssid = "N/A" }
-wifi_text = wibox.widget.textbox()
-
-wifi_icon = wibox.widget.imagebox()
-
-function update_wifi_icon()
-    local icon_dir = awful.util.getdir("config") .. "/icons/wireless-"
-    local icon_str = "disconnected"
-    if wifi_info.ssid ~= "N/A" then
-        if wifi_info.qual >= 75 then icon_str = "full"
-        elseif wifi_info.qual >= 50 then icon_str = "high"
-        elseif wifi_info.qual >= 25 then icon_str = "medium"
-        elseif wifi_info.qual > 0 then icon_str = "low"
-        else icon_str = "none" end
-    end
-    wifi_icon:set_image(icon_dir .. icon_str .. ".png")
-end
-
-vicious.register(wifi_text, vicious.widgets.wifi, 
-    function(widget, args)
-        wifi_info.ssid = args["{ssid}"]
-        wifi_info.qual = args["{linp}"]
-        update_wifi_icon()
-        return wifi_info.qual .. "%"
-    end, 1, "wlan0")
-update_wifi_icon()
-
 myweather = wibox.widget.textbox()
 wdata = { tempc = "N/A", }
 -- Need to siphon off the data for use in the tooltips later
