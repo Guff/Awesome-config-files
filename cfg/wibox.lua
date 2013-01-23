@@ -3,17 +3,6 @@ require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
 
-local wibox = require("wibox")
-
-local sysmon_buttons = awful.button({}, 1,
-    function()
-        run_or_raise("lxtask", { class = "lxtask" } )
-    end
-)
-
--- Create a systray
-mysystray = wibox.widget.systray()
-
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
