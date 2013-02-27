@@ -1,5 +1,3 @@
-require("shifty")
-
 layouts =
 {
     awful.layout.suit.floating,
@@ -31,25 +29,3 @@ shifty.config.tags = {
 
 local tags = shifty.config.tags
 
-shifty.config.apps = {
-    -- Force luakit on tag 2
-    { match = { "luakit" }, tag = mytags[2], },
-    -- Make MPlayer float
-    { match = { "mplayer2" }, float = true, },
-    { match = { "" }, buttons = awful.util.table.join(
-        awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-        awful.button({ modkey }, 1, awful.mouse.client.move),
-        awful.button({ modkey }, 3, awful.mouse.client.resize)),
-      border_width = beautiful.border_width, border_color = beautiful.border_color,
-      focus = true, 
-    },
-}
-
-shifty.config.defaults = {
-  layout = "floating", 
-  run = function(tag) naughty.notify({ text = "Created " .. tag.name }) end,
-}
-
-shifty.config.layouts = layouts
-shifty.config.guess_name = false
-shifty.config.guess_position = false

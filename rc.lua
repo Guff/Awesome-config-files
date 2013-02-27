@@ -26,5 +26,3 @@ root.keys(globalkeys)
 root.buttons(globalbuttons)
 
 require("cfg.rules")
-
-shifty.init()

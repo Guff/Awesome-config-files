@@ -17,23 +17,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "Left", function () awful.util.spawn("ncmpcpp prev") end),
     awful.key({ modkey, "Shift"   }, "Right", function () awful.util.spawn("ncmpcpp next") end),
 
-    -- Shifty keys
-    awful.key({ modkey }, "a", shifty.add),
-    awful.key({ modkey, "Shift" }, "d", shifty.del),
-    awful.key({ modkey, "Shift" }, "r", shifty.rename),
-    awful.key({ modkey }, "n", shifty.sen_next ), -- Send client to next tag
-    awful.key({ modkey, "Shift" }, "n", shifty.sen_prev), -- Send client to previous tag
-    -- Display tag on the next screen
-    awful.key({ modkey, "Control" }, "n",
-      function ()
-        local t = awful.tag.seleted() -- Get the current tag
-        local s = awful.util.cycle(screen.count(), awful.tag.getscreen(t) + 1) -- Get the next screen number
-        awful.tag.history.restore()
-        t = shifty.tagtoscr(s, t)
-        awful.tag.viewonly(t)
-      end
-    ),
-
     -- Launch my terminal setup
     awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -132,6 +115,7 @@ globalkeys = awful.util.table.join(
         end)
 )
 
+-- TODO: Change this for normal tags
 for i=1, ( shifty.config.maxtags or 9 ) do
     globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey }, i,
         function ()
@@ -164,5 +148,3 @@ globalbuttons = awful.util.table.join(
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 )
-
-shifty.config.globalkeys = globalkeys
