@@ -1,3 +1,5 @@
+local awful = require("awful")
+
 ---------------------------
 -- Smoked awesome theme  --
 ---------------------------

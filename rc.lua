@@ -1,13 +1,13 @@
 -- Standard awesome library
-require("awful")
+local awful = require("awful")
 require("awful.autofocus")
 require("awful.rules")
 require("awful.remote")
 -- Theme handling library
-require("beautiful")
+local beautiful = require("beautiful")
 beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
 -- Notification library
-require("naughty")
+local naughty = require("naughty")
 
 -- Misc. settings and tools
 require("cfg.misc")
