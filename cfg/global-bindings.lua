@@ -1,3 +1,4 @@
+local awful = require("awful")
 -- require("misc.dict")
 
 globalkeys = awful.util.table.join(
