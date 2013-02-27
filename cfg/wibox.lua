@@ -1,5 +1,7 @@
+local awful = require("awful")
+local wibox = require("wibox")
 -- widgets
-require("misc.notifications")
+--require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
 
