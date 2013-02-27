@@ -115,37 +115,3 @@ globalkeys = awful.util.table.join(
             end
         end)
 )
-
--- TODO: Change this for normal tags
-for i=1, ( shifty.config.maxtags or 9 ) do
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey }, i,
-        function ()
-            local t = awful.tag.viewonly(shifty.getpos(i))
-        end))
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey, "Control" }, i,
-        function ()
-            local t = shifty.getpos(i)
-            t.selected = not t.selected
-        end))
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey, "Control", "Shift" }, i,
-        function ()
-            if client.focus then
-            awful.client.toggletag(shifty.getpos(i))
-        end
-    end))
-    -- move clients to other tags
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey, "Shift" }, i,
-    function ()
-        if client.focus then
-            local t = shifty.getpos(i)
-            awful.client.movetotag(t)
-            --awful.tag.viewonly(t)
-        end
-    end))
-end
-
-globalbuttons = awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-)
