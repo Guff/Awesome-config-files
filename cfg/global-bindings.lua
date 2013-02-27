@@ -1,7 +1,7 @@
 local awful = require("awful")
 -- require("misc.dict")
 
-globalkeys = awful.util.table.join(
+local globalkeys = awful.util.table.join(
     -- Special function keys
     -- Briteness is controled by hardware on this laptop
     -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
@@ -115,3 +115,13 @@ globalkeys = awful.util.table.join(
             end
         end)
 )
+root.keys(globalkeys)
+
+-- Mouse bindings
+local globalbuttons = awful.util.table.join(
+  awful.button({ }, 3, function () mymainmenu:toggle() end),
+  awful.button({ }, 4, awful.tag.viewnext),
+  awful.button({ }, 5, awful.tag.viewprev)
+)
+root.buttons(globalbuttons)
+

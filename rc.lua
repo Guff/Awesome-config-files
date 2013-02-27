@@ -21,8 +21,4 @@ require("cfg.wibox")
 require("cfg.global-bindings")
 require("cfg.client-bindings")
 
--- Set keys and buttons
-root.keys(globalkeys)
-root.buttons(globalbuttons)
-
 require("cfg.rules")
