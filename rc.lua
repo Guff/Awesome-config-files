@@ -13,6 +13,12 @@ modkey = "Mod4"
 
 -- Start theme
 beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
+if beautiful.wallpaper then
+  for s = 1, screen.count() do
+    -- True is for no offset
+    gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+  end
+end
 
 -- Misc. settings and tools
 require("cfg.misc")
