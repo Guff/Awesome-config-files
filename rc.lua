@@ -19,6 +19,5 @@ require("cfg.wibox")
 
 -- Key bindings
 require("cfg.global-bindings")
-require("cfg.client-bindings")
 
 require("cfg.rules")
