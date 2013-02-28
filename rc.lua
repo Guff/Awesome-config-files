@@ -16,6 +16,7 @@ require("cfg.tags")
 require("misc.notifications")
 -- Load wibox
 require("cfg.wibox")
+require("cfg.signals")
 
 -- Key bindings
 require("cfg.global-bindings")
