@@ -85,7 +85,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", height="18", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s })
 
     -- Widgets that go on the left side of the bar, such as the taglist and the the promptbox
     local left_layout = wibox.layout.fixed.horizontal()
