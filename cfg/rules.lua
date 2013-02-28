@@ -13,6 +13,12 @@ awful.rules.rules = {
       keys = clientkeys,
       buttons = clientbuttons
     }
+  },
+  -- TODO: Make Mplayer spawn centered
+  { rule = { class = "MPlayer" },
+    proprieties = {
+      floating = true,
+    }
   }
 }
 
