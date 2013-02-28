@@ -1,11 +1,4 @@
 local awful = require("awful")
--- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
-editor = "vim"
-editor_cmd = terminal .. " -e " .. editor
-browser = "luakit"
-
-modkey = "Mod4"
 
 local oldspawn = awful.util.spawn
 awful.util.spawn = function (s)

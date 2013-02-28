@@ -9,6 +9,14 @@ beautiful.init(awful.util.getdir("config") .. "/theme/theme.lua")
 -- Notification library
 local naughty = require("naughty")
 
+-- This is used later as the default terminal and editor to run.
+terminal = "urxvt"
+editor = "vim"
+editor_cmd = terminal .. " -e " .. editor
+browser = "luakit"
+
+modkey = "Mod4"
+
 -- Misc. settings and tools
 require("cfg.misc")
 -- Load layouts and tags
