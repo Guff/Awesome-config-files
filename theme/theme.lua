@@ -88,7 +88,7 @@ theme.titlebar_maximized_button_focus_active =
 	theme_base .. "titlebar/maximized_focus_active.png"
 
 -- You can use your own command to set your wallpaper
-theme.wallpaper = theme_base .. "defender.jpg"
+theme.wallpaper = theme_base .. "king_of_the_hammers.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = theme_base .. "layouts/fairh.png"
