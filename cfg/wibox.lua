@@ -6,10 +6,11 @@ local wibox = require("wibox")
 --require("cfg.menu")
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mylayoutbox = {}
-mytaglist = {}
+local mywibox = {}
+local mypromptbox = {}
+local mylayoutbox = {}
+local mytaglist = {}
+local mytasklist = {}
 
 mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 1, awful.tag.viewonly),
@@ -19,7 +20,6 @@ mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
   awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscrren(t)) end)
 )
-mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
   awful.button({ }, 1,
     function (c)
