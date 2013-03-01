@@ -131,6 +131,15 @@ for i = 1, keynumber do
           awful.tag.viewonly(tags[screen][i])
         end
       end
+    ),
+    -- Merge two tags
+    awful.key({ modkey, "Control" }, "#" .. i + 9,
+      function ()
+        local screen = mouse.screen
+        if tags[screen][i] then
+          awful.tag.viewtoggle(tags[screen][i])
+        end
+      end
     )
   )
 end
