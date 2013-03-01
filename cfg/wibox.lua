@@ -6,11 +6,11 @@ local wibox = require("wibox")
 --require("cfg.menu")
 
 -- Create a wibox for each screen and add it
-local mywibox = {}
-local mypromptbox = {}
-local mylayoutbox = {}
-local mytaglist = {}
-local mytasklist = {}
+mywibox = {}
+mypromptbox = {}
+mylayoutbox = {}
+mytaglist = {}
+mytasklist = {}
 
 mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 1, awful.tag.viewonly),
