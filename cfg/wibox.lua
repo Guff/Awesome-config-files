@@ -28,7 +28,7 @@ mytasklist.buttons = awful.util.table.join(
       else
         -- Without this, the following :ivisible() makes no sense
         c.minimized = false
-        if not c:visible() then
+        if not c:isvisible() then
           awful.tag.viewonly(c:tags()[1])
         end
         -- This will also un-minimize the client, if needed
