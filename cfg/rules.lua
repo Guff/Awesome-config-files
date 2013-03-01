@@ -15,7 +15,7 @@ awful.rules.rules = {
     }
   },
   -- TODO: Make Mplayer spawn centered
-  { rule = { class = "MPlayer" },
+  { rule = { class = "mplayer2" },
     properties = {
       floating = true,
     }
