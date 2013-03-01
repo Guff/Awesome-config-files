@@ -15,7 +15,7 @@ theme.taglist_font = "Droid Sans 9"
 theme.bg_normal     = "#323232"
 theme.bg_focus      = "#115584"
 theme.bg_urgent     = "#DC8536"
-theme.bg_minimize   = "#352E2A"
+theme.bg_minimize   = "#5E788B"
 
 theme.fg_normal     = "#E7E5DE"
 theme.fg_focus      = "#F5F5F5"
