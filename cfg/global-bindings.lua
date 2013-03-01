@@ -115,6 +115,25 @@ local globalkeys = awful.util.table.join(
             end
         end)
 )
+
+local keynumber = 0
+for s =1, screen.count() do
+  keynumber = math.min(9, math.max(#tags[s], keynumber))
+end
+
+for i = 1, keynumber do
+  globalkeys = awful.util.table.join(globalkeys,
+    -- Move to another tag
+    awful.key({ modkey }, "#" .. i + 9,
+      function ()
+        local screen = mouse.screen
+        if tags[screen][i] then
+          awful.tag.viewonly(tags[screen][i])
+        end
+      end
+    )
+  )
+end
 root.keys(globalkeys)
 
 -- Mouse bindings
