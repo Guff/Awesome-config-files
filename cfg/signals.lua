@@ -1,9 +1,9 @@
 local awful = require("awful")
 local wibox = require("wibox")
 
-client.add_signal("manage", function (c, startup)
+client.connect_signal("manage", function (c, startup)
   -- Enable sloppy focus
-  c:add_signal("mouse::enter", function(c)
+  c:connect_signal("mouse::enter", function(c)
     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier and awful.client.focus.filter(c) then
       client.focus = c
     end
@@ -56,5 +56,5 @@ client.add_signal("manage", function (c, startup)
   end
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
