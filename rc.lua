@@ -32,9 +32,3 @@ require("cfg.signals")
 
 -- Key bindings
 require("cfg.global-bindings")
-
-
--- Dump awful.rules to check
-awful.rules = require("awful.rules")
-local pretty = require("pl.pretty")
-pretty.dump(awful.rules.rules)

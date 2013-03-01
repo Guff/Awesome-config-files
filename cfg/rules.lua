@@ -6,7 +6,7 @@ local clientkeys, clientbuttons = require("cfg.client-bindings")
 awful.rules.rules = {
   -- Rules to all the clients
   { rule = { },
-    proprieties = {
+    properties = {
       border_width = beautiful.border_width,
       border_color = beautiful.border_normal,
       focus = awful.client.focus.filter,
@@ -16,7 +16,7 @@ awful.rules.rules = {
   },
   -- TODO: Make Mplayer spawn centered
   { rule = { class = "MPlayer" },
-    proprieties = {
+    properties = {
       floating = true,
     }
   }
