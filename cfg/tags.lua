@@ -19,5 +19,5 @@ mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
 
 tags = {}
 for s = 1, screen.count() do
-  tags[s] = awful.tag(mytags, s, layouts)
+  tags[s] = awful.tag(mytags, s, layouts[2])
 end
