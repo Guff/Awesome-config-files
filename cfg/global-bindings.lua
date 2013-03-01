@@ -140,6 +140,14 @@ for i = 1, keynumber do
           awful.tag.viewtoggle(tags[screen][i])
         end
       end
+    ),
+    -- Move client to tag
+    awful.key({ modkey, "Shift" }, "#" .. i + 9,
+      function ()
+        if client.focus and tags[client.focus.screen][i] then
+          awful.client.movetotag(tags[client.focus.screen][i])
+        end
+      end
     )
   )
 end
