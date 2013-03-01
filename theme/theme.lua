@@ -12,8 +12,8 @@ theme.font = "Droid Sans 8"
 theme.tasklist_font = "Droid Sans 8"
 theme.taglist_font = "Droid Sans 9"
 
-theme.bg_normal     = "#61645B"
-theme.bg_focus      = "#8D8873"
+theme.bg_normal     = "#323232"
+theme.bg_focus      = "#115584"
 theme.bg_urgent     = "#DC8536"
 theme.bg_minimize   = "#352E2A"
 
