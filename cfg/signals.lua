@@ -1,5 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 
 client.connect_signal("manage", function (c, startup)
   -- Enable sloppy focus
