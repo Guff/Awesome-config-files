@@ -1,9 +1,11 @@
 local awful = require("awful")
 local wibox = require("wibox")
--- widgets
 --require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
+
+-- widgets
+local mytextclock = awful.widget.textclock()
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -94,6 +96,7 @@ for s = 1, screen.count() do
 
     -- Widgets that go on the right, such as the layoutbox
     local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
     -- Join the widgets, with the tasklist in the middle
