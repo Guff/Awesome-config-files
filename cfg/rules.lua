@@ -20,9 +20,9 @@ awful.rules.rules = {
       floating = true,
     }
   },
-  { rule = { class = "luakit" },
-    properties = {
-      tag = tags[1][2]
-    }
-  }
+  --{ rule = { class = "luakit" },
+  --  properties = {
+  --    tag = awful.tag.gettags(1)[2]
+  --  }
+  --}
 }
