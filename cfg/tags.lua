@@ -1,4 +1,5 @@
 local awful = require("awful")
+local tyranical = require("tyranical")
 
 layouts = {
   awful.layout.suit.floating,
@@ -17,7 +18,46 @@ layouts = {
 
 mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
 
-tags = {}
-for s = 1, screen.count() do
-  tags[s] = awful.tag(mytags, s, layouts[2])
-end
+tyranical.tags = {
+  {
+    name = "main",
+    init = true,
+    layout = awful.layout.suit.tile,
+    screen = 1
+  },
+  {
+    name = "www",
+    init = true,
+    layout = awful.layout.suit.max,
+    match = { "luakit" }
+  },
+  {
+    name = "dev",
+    init = true,
+    layout = awful.layout.suit.tile.bottom
+  },
+  {
+    name = "doc",
+    init = true,
+    layout = awful.layout.suit.tile
+  },
+  {
+    name = "admin",
+    init = true,
+    layout = awful.layout.suit.tile
+  },
+  {
+    name = "⚈",
+    layout = awful.layout.suit.float
+  },
+  {
+    name = "⌘",
+    init = true,
+    layout = awful.layout.suit.float
+  },
+  {
+    name = "⌥",
+    init = true,
+    layout = awful.layout.suit.float
+  }
+}
