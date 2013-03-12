@@ -7,8 +7,10 @@ You can test the config with the debug.sh script on the scripts folder. Opens a
 nested X session, so it can be tested within another WM
 
 ### Dependencies
-[Awesome WM](http://awesome.naquadah.org/) 3.4.11 or higher
-[Vicious Widget library](https://github.com/masterkorp/Vicious)
-[Awesome freedesktop menu](https://github.com/terceiro/awesome-freedesktop/tree)
-[Shifty dinamic library](https://github.com/bioe007/awesome-shifty)
+[Awesome WM](http://awesome.naquadah.org/) 3.5 or higher
+
+[Awesome freedesktop menu](https://github.com/terceiro/awesome-freedesktop/tree) -- Currently not working
+
+[Tyranical dinamic tagging ](https://github.com/Elv13/awesome-tyranical)
+
 [Xephyr](http://www.freedesktop.org/wiki/Software/Xephyr) for the debug script

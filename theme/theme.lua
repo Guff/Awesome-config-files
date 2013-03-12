@@ -1,3 +1,5 @@
+local awful = require("awful")
+
 ---------------------------
 -- Smoked awesome theme  --
 ---------------------------
@@ -10,10 +12,10 @@ theme.font = "Droid Sans 8"
 theme.tasklist_font = "Droid Sans 8"
 theme.taglist_font = "Droid Sans 9"
 
-theme.bg_normal     = "#61645B"
-theme.bg_focus      = "#8D8873"
+theme.bg_normal     = "#323232"
+theme.bg_focus      = "#115584"
 theme.bg_urgent     = "#DC8536"
-theme.bg_minimize   = "#352E2A"
+theme.bg_minimize   = "#5E788B"
 
 theme.fg_normal     = "#E7E5DE"
 theme.fg_focus      = "#F5F5F5"
@@ -22,7 +24,7 @@ theme.fg_minimize  = "#b9bbbb"
 
 theme.border_width  = "1"
 theme.border_normal = "#282421"
-theme.border_focus  = "#cbc8c1"
+theme.border_focus  = "#2F6E9A"
 theme.border_marked = "#f7f7f7"
 
 -- There are another variables sets
@@ -76,17 +78,13 @@ theme.titlebar_floating_button_focus_inactive = theme_base .. "titlebar/floating
 theme.titlebar_floating_button_normal_active = theme_base .. "titlebar/floating_normal_active.png"
 theme.titlebar_floating_button_focus_active = theme_base .. "titlebar/floating_focus_active.png"
 
-theme.titlebar_maximized_button_normal_inactive =
-	theme_base .. "titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive =
-	theme_base .. "titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active =
-	theme_base .. "titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active =
-	theme_base .. "titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = theme_base .. "titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive = theme_base .. "titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active = theme_base .. "titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active = theme_base .. "titlebar/maximized_focus_active.png"
 
 -- You can use your own command to set your wallpaper
-theme.wallpaper_cmd = { "awsetbg -f " .. awful.util.getdir("config") .. "/theme/defender.jpg" }
+theme.wallpaper = theme_base .. "king_of_the_hammers.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = theme_base .. "layouts/fairh.png"
