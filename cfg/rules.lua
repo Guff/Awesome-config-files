@@ -18,9 +18,9 @@ awful.rules.rules = {
 }
 
 tyranical.properties.floating = {
-  "mplayer2"
+  "mplayer2", "Xephyr"
 }
 
 tyranical.properties.centered = {
-  "mplayer2"
+  "mplayer2", "Xephyr"
 }
