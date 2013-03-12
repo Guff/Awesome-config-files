@@ -2,6 +2,7 @@ local awful = require("awful")
 awful.rules = require("awful.rules")
 local beautiful = require("beautiful")
 local clientbinds = require("cfg.client-bindings")
+local tyranical = require("tyranical")
 
 awful.rules.rules = {
   -- Rules to all the clients
@@ -14,15 +15,12 @@ awful.rules.rules = {
       buttons = clientbinds.buttons
     }
   },
-  -- TODO: Make Mplayer spawn centered
-  { rule = { class = "mplayer2" },
-    properties = {
-      floating = true,
-    }
-  },
-  --{ rule = { class = "luakit" },
-  --  properties = {
-  --    tag = awful.tag.gettags(1)[2]
-  --  }
-  --}
+}
+
+tyranical.properties.floating = {
+  "mplayer2"
+}
+
+tyranical.properties.centered = {
+  "mplayer2"
 }
