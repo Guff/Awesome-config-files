@@ -29,7 +29,7 @@ tyranical.tags = {
     name = "www",
     init = true,
     layout = awful.layout.suit.max,
-    match = { "luakit" }
+    exec_once = { "luakit" }
   },
   {
     name = "dev",
