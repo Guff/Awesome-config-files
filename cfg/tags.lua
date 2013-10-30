@@ -20,25 +20,25 @@ mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
 
 tyranical.tags = {
   {
-    name = "Main",
+    name = "main",
     init = true,
     layout = awful.layout.suit.tile,
     screen = 1
   },
   {
-    name = "WWW",
+    name = "www",
     init = true,
     layout = awful.layout.suit.max,
     exec_once = { "luakit" },
     screen = 1
   },
   {
-    name = "Dev",
+    name = "dev",
     init = true,
     layout = awful.layout.suit.tile.bottom
   },
   {
-    name = "Admin",
+    name = "admin",
     init = true,
     layout = awful.layout.suit.tile
   },
@@ -71,6 +71,7 @@ tyranical.tags = {
   {
     name = "OpenSCAD",
     init = true,
+    exclusive = true,
     layout = awful.layout.suit.max,
     class = { "OpenSCAD" },
     screen = 2,
@@ -79,6 +80,7 @@ tyranical.tags = {
     name = "Music",
     init = true,
     layout = awful.layout.suit.max,
-    screen = 2
+    screen = 2,
+    force_screen = 2
   }
 }
