@@ -1,5 +1,5 @@
 local awful = require("awful")
-local tyranical = require("tyranical")
+local tyrannical = require("tyrannical")
 
 layouts = {
   awful.layout.suit.floating,
@@ -18,7 +18,7 @@ layouts = {
 
 mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
 
-tyranical.tags = {
+tyrannical.tags = {
   {
     name = "main",
     init = true,

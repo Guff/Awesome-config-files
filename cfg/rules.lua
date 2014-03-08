@@ -2,7 +2,7 @@ local awful = require("awful")
 awful.rules = require("awful.rules")
 local beautiful = require("beautiful")
 local clientbinds = require("cfg.client-bindings")
-local tyranical = require("tyranical")
+local tyrannical = require("tyrannical")
 
 awful.rules.rules = {
   -- Rules to all the clients
@@ -17,10 +17,10 @@ awful.rules.rules = {
   },
 }
 
-tyranical.properties.floating = {
+tyrannical.properties.floating = {
   "mplayer2", "Xephyr", "mpv"
 }
 
-tyranical.properties.centered = {
+tyrannical.properties.centered = {
   "mplayer2", "Xephyr", "mpv"
 }
