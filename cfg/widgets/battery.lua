@@ -24,7 +24,9 @@ local function worker(args)
 
   end
     
-  update()
+  local battery_timer = timer ({timeout = 10})
+  battery_timer:connect_signal("timeout", update)
+  battery_timer:start()
 
 end
 
