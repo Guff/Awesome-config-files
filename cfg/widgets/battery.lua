@@ -18,6 +18,8 @@ local function worker(args)
   __bat.widget:add(imagebox)
 
   local progressbar = awful.widget.progressbar()
+  awful.widget.progressbar.set_vertical(progressbar, true)
+  progressbar:set_width(10)
   __bat.widget:add(progressbar)
 
   function update()
