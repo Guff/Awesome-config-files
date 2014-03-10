@@ -1,35 +1,25 @@
-require("misc.dict")
+local awful = require("awful")
+-- require("misc.dict")
 
-globalkeys = awful.util.table.join(
+local globalkeys = awful.util.table.join(
     -- Special function keys
-    awful.key({ }, "XF86MonBrightnessUp", brightness_up),
-    awful.key({ }, "XF86MonBrightnessDown", brightness_down),
+    -- Briteness is controled by hardware on this laptop
+    -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
+    -- awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
-    awful.key({ }, "XF86AudioLowerVolume", volume_down_and_update),
-    awful.key({ }, "XF86AudioRaiseVolume", volume_up_and_update),
-    awful.key({ }, "XF86AudioMute", volume_mute_and_update),
+    awful.key({ modkey,           }, "F7", volume_down),
+    awful.key({ modkey,           }, "F8", volume_up),
+    awful.key({ modkey,           }, "F9", volume_mute),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
-    
+
     -- MPD keys
     awful.key({ modkey, "Shift"   }, "Up", function () awful.util.spawn("ncmpcpp toggle") end),
     awful.key({ modkey, "Shift"   }, "Down", function () awful.util.spawn("ncmpcpp stop") end),
     awful.key({ modkey, "Shift"   }, "Left", function () awful.util.spawn("ncmpcpp prev") end),
     awful.key({ modkey, "Shift"   }, "Right", function () awful.util.spawn("ncmpcpp next") end),
 
-    -- Shifty keys
-    awful.key({ modkey, "Control" }, "t", function() shifty.add({ rel_index = 1 }) end),
-    awful.key({ modkey, "Shift"   }, "t", function() shifty.add({ rel_index = 1, nopopup = true }) end),
-    awful.key({ modkey, "Control" }, "g",           shifty.rename),
-    awful.key({ modkey, "Control" }, "w",           shifty.del),
-    
     -- Launch my terminal setup
-    awful.key({ modkey,           }, "g",
-        function()
-            awful.util.spawn("sakura")
-            awful.util.spawn("sakura -f \"Terminus (TTF) 9\"")
-            awful.util.spawn("sakura -f \"Terminus (TTF) 9\"")
-        end
-    ),
+    awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -61,7 +51,6 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -75,25 +64,25 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    awful.key({ modkey,           }, ";",
-        function ()
-            awful.prompt.run({ prompt = "Dict: " }, mypromptbox[mouse.screen].widget,
-            function(word)
-                local definition = awful.util.pread("dict " .. word .. " 2>&1")
-                naughty.notify({ text = definition, timeout = 13, title = word,
-                    width = 400, font = "Sans 7" })
-            end, dict_cb, awful.util.getdir("cache") .. "/dict")
-        end
-    ),
-    awful.key({ modkey, "Control" }, ";",
-        function ()
-            if selection() then
-                definition = awful.util.pread("dict " .. selection() .. " 2>&1")
-                naughty.notify({ text = definition, timeout = 13,
-                    title = selection(), width = 400, font = "Sans 7" })
-            end
-        end
-    ),
+    -- awful.key({ modkey,           }, ";",
+        -- function ()
+            -- awful.prompt.run({ prompt = "Dict: " }, mypromptbox[mouse.screen].widget,
+            -- function(word)
+                -- local definition = awful.util.pread("dict " .. word .. " 2>&1")
+                -- naughty.notify({ text = definition, timeout = 13, title = word,
+                    -- width = 400, font = "Sans 7" })
+            -- end, dict_cb, awful.util.getdir("cache") .. "/dict")
+        -- end
+    -- ),
+    -- awful.key({ modkey, "Control" }, ";",
+        -- function ()
+            -- if selection() then
+                -- definition = awful.util.pread("dict " .. selection() .. " 2>&1")
+                -- naughty.notify({ text = definition, timeout = 13,
+                    -- title = selection(), width = 400, font = "Sans 7" })
+            -- end
+        -- end
+    --),
     awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
@@ -103,8 +92,8 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
-    -- all minimized clients are restored 
-    awful.key({ modkey, "Shift"   }, "n", 
+    -- all minimized clients are restored
+    awful.key({ modkey, "Shift"   }, "n",
         function()
             local tags = awful.tag.selectedlist()
             for j=1, #tags do
@@ -115,7 +104,7 @@ globalkeys = awful.util.table.join(
             end
         end),
     -- show desktop/unminimize
-    awful.key({ modkey            }, "d", 
+    awful.key({ modkey            }, "d",
         function()
             local tag = awful.tag.selected()
             for i=1, #tag:clients() do
@@ -127,38 +116,46 @@ globalkeys = awful.util.table.join(
         end)
 )
 
-for i=1, ( shifty.config.maxtags or 9 ) do
-  
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey }, i,
-        function ()
-            local t = awful.tag.viewonly(shifty.getpos(i))
-        end))
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey, "Control" }, i,
-        function ()
-            local t = shifty.getpos(i)
-            t.selected = not t.selected
-        end))
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey, "Control", "Shift" }, i,
-        function ()
-            if client.focus then
-            awful.client.toggletag(shifty.getpos(i))
+for i = 1, 9 do
+  globalkeys = awful.util.table.join(globalkeys,
+    -- Move to another tag
+    awful.key({ modkey }, "#" .. i + 9,
+      function ()
+        local screen = mouse.screen
+        local tag = awful.tag.gettags(screen)[i]
+        if tag then
+          awful.tag.viewonly(tag)
         end
-    end))
-    -- move clients to other tags
-    globalkeys = awful.util.table.join(globalkeys, awful.key({ modkey, "Shift" }, i,
-    function ()
-        if client.focus then
-            local t = shifty.getpos(i)
-            awful.client.movetotag(t)
-            --awful.tag.viewonly(t)
+      end
+    ),
+    -- Merge two tags
+    awful.key({ modkey, "Control" }, "#" .. i + 9,
+      function ()
+        local screen = mouse.screen
+        local tag = awful.tag.gettags(screen)[i]
+        if tag then
+          awful.tag.viewtoggle(tag)
         end
-    end))
+      end
+    ),
+    -- Move client to tag
+    awful.key({ modkey, "Shift" }, "#" .. i + 9,
+      function ()
+        local tag = awful.tag.gettags(client.focus.screen)[i]
+        if client.focus and tag then
+          awful.client.movetotag(tag)
+        end
+      end
+    ),
+    -- Toggle client on another tag too
+    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+      function ()
+        local tag = awful.tag.gettags(client.focus.screen)[i]
+        if client.focus and tag then
+          awful.client.toggletag(tag)
+        end
+      end
+    )
+  )
 end
-
-globalbuttons = awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-)
-
-shifty.config.globalkeys = globalkeys
+root.keys(globalkeys)
