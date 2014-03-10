@@ -27,10 +27,6 @@ local function worker(args)
     -- Calculate charge
     percentage = math.floor((charge * 100) / capacity)
 
-    naughty.notify({ title = "Status", text = status, timeout = 20})
-    naughty.notify({ title = "Charge", text = charge, timeout = 20})
-    naughty.notify({ title = "Capacity", text = capacity, timeout = 20})
-    naughty.notify({ title = "Percentage", text = percentage, timeout = 20})
     textbox:set_text(percentage)
 
   end
