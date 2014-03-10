@@ -11,11 +11,13 @@ local function worker(args)
   -- A layout widget that contains the 3 widgets for the diferent
   __bat.widget = wibox.layout.fixed.horizontal()
   local textbox = wibox.widget.textbox()
+  __bat.widget:add(textbox)
+
   local imagebox = wibox.widget.imagebox()
   imagebox:set_image(awful.util.getdir("config") .. "/icons/batticon.png")
-  local progressbar = awful.widget.progressbar()
-  __bat.widget:add(textbox)
   __bat.widget:add(imagebox)
+
+  local progressbar = awful.widget.progressbar()
   __bat.widget:add(progressbar)
 
   function update()
