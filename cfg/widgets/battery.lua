@@ -12,6 +12,19 @@ batticon["icon"] = surface(awful.util.getdir("config") .. "/icons/batticon.png")
 -- The battery charge
 local total = .5
 
+local function update(textbox)
+  -- Battery status
+  local status = assert(io.open(base_string .. "/status"):read())
+  local charge = assert(io.open(base_string .. "/energy_now"):read())
+  local capacity = assert(io.open(base_string .. "/energy_full"):read())
+
+  -- Calculate charge
+  total = math.floor(charge / capacity)
+
+  textbox:set_text(total * 100)
+
+end
+
 local function worker(args)
   local args = args or {}
 
@@ -42,21 +55,9 @@ local function worker(args)
   __bat.widget:add(icon)
 
 
-  function update()
-    -- Battery status
-    local status = assert(io.open(base_string .. "/status"):read())
-    local charge = assert(io.open(base_string .. "/energy_now"):read())
-    local capacity = assert(io.open(base_string .. "/energy_full"):read())
-
-    -- Calculate charge
-    total = math.floor(charge / capacity)
-
-    textbox:set_text(total * 100)
-
-  end
 
   local battery_timer = timer ({timeout = 10})
-  battery_timer:connect_signal("timeout", update)
+  battery_timer:connect_signal("timeout", function() update(textbox) end)
   battery_timer:start()
 
   return __bat.widget
