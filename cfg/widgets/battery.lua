@@ -1,9 +1,16 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local naughty = require("naughty")
+local surface = require("gears.surface")
 
 local __bat = {}
 local base_string = "/sys/class/power_supply/BAT0"
+local batticon = {}
+batticon["width"] = 10
+batticon["height"] = 14
+batticon["icon"] = surface(awful.util.getdir("config") .. "/icons/batticon.png")
+-- The battery charge
+local total = .5
 
 local function worker(args)
   local args = args or {}
@@ -13,14 +20,27 @@ local function worker(args)
   local textbox = wibox.widget.textbox()
   __bat.widget:add(textbox)
 
-  local imagebox = wibox.widget.imagebox()
-  imagebox:set_image(awful.util.getdir("config") .. "/icons/batticon.png")
-  __bat.widget:add(imagebox)
+  -- The icon
+  -- http://awesome.naquadah.org/wiki/Writing_own_widgets
+  local icon = wibox.widget.base.make_widget()
+  icon.fit = function(icon, width, height)
+     return batticon["width"], batticon["height"]
+  end
+  icon.draw = function(_, wibox, cr, width, height)
+    -- This not really documented use the cairo to get bearings in.
+    -- http://cairographics.org/manual/cairo-cairo-t.html
+    -- Another example is:
+    -- https://github.com/Elv13/awesome-configs/blob/master/widgets/battery.lua
+    cr:set_source_surface(batticon.icon, 0, 0)
+    cr:paint()
+    -- It must not overlap, and since y is the counting from the top, you need to translate the rectangle to the bottom of the icon
+    cr:translate(.5, (2 + batticon["height"] * (1 - total)))
+    cr:rectangle(1, 1, batticon["width"] - 2, batticon["height"] * total)
+    cr:set_source_rgb(1, 0, 0)
+    cr:fill()
+  end
+  __bat.widget:add(icon)
 
-  local progressbar = awful.widget.progressbar()
-  awful.widget.progressbar.set_vertical(progressbar, true)
-  progressbar:set_width(10)
-  __bat.widget:add(progressbar)
 
   function update()
     -- Battery status
@@ -29,12 +49,12 @@ local function worker(args)
     local capacity = assert(io.open(base_string .. "/energy_full"):read())
 
     -- Calculate charge
-    percentage = math.floor((charge * 100) / capacity)
+    total = math.floor(charge / capacity)
 
-    textbox:set_text(percentage)
+    textbox:set_text(total * 100)
 
   end
-    
+
   local battery_timer = timer ({timeout = 10})
   battery_timer:connect_signal("timeout", update)
   battery_timer:start()
