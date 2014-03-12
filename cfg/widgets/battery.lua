@@ -19,9 +19,9 @@ local function update(textbox)
   local capacity = assert(io.open(base_string .. "/energy_full"):read())
 
   -- Calculate charge
-  total = math.floor(charge / capacity)
+  total = charge / capacity
 
-  textbox:set_text(total * 100)
+  textbox:set_text(math.floor(total * 100))
 
 end
 
