@@ -2,6 +2,8 @@ local awful = require("awful")
 local wibox = require("wibox")
 local naughty = require("naughty")
 local surface = require("gears.surface")
+local beautiful = require("beautiful")
+local color = require("gears.color")
 
 local __bat = {}
 local base_string = "/sys/class/power_supply/BAT0"
@@ -49,7 +51,14 @@ local function new(args)
     -- It must not overlap, and since y is the counting from the top, you need to translate the rectangle to the bottom of the icon
     cr:translate(.5, (2 + batticon["height"] * (1 - total)))
     cr:rectangle(1, 1, batticon["width"] - 2, batticon["height"] * total)
-    cr:set_source_rgb(1, 0, 0)
+    if total > .35 then
+      cr:set_source_rgb(color.parse_color(beautiful.batt_ok))
+    elseif total > .1 and total <= .35 then
+      cr:set_source_rgb(color.parse_color(beautiful.batt_danger))
+    elseif total <= .1 then
+      cr:set_source_rgb(color.parse_color(beautiful.batt_dying))
+    end
+
     cr:fill()
   end
   __bat.widget:add(icon)
