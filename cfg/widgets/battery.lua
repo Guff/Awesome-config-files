@@ -50,7 +50,7 @@ local function new(args)
     cr:paint()
     -- It must not overlap, and since y is the counting from the top, you need to translate the rectangle to the bottom of the icon
     cr:translate(.5, (2 + batticon["height"] * (1 - total)))
-    cr:rectangle(1, 1, batticon["width"] - 2, batticon["height"] * total)
+    cr:rectangle(1, 1, batticon["width"] - 3, batticon["height"] * total)
     if total > .35 then
       cr:set_source_rgb(color.parse_color(beautiful.batt_ok))
     elseif total > .1 and total <= .35 then
