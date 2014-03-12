@@ -11,6 +11,7 @@ local batticon = {}
 batticon["width"] = 10
 batticon["height"] = 14
 batticon["icon"] = surface(awful.util.getdir("config") .. "/icons/batticon.png")
+batticon["charging"] = surface(awful.util.getdir("config") .. "/icons/charging.png")
 batticon["status"] = ""
 batticon["danger"] = 0.35
 batticon["dying"] = 0.10
@@ -66,8 +67,13 @@ local function new(args)
     elseif total <= batticon["danger"] then
       cr:set_source_rgb(color.parse_color(beautiful.batt_dying))
     end
-
     cr:fill()
+
+    if batticon["status"] == "Charging" then
+      cr:set_source_surface(batticon["charging"], -1, -4)
+      cr:paint()
+    end
+
   end
   __bat.widget:add(icon)
 
