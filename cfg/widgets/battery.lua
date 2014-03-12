@@ -11,6 +11,7 @@ local batticon = {}
 batticon["width"] = 10
 batticon["height"] = 14
 batticon["icon"] = surface(awful.util.getdir("config") .. "/icons/batticon.png")
+batticon["status"] = ""
 -- The battery charge
 local total = .5
 
@@ -25,6 +26,11 @@ local function update(textbox)
 
   textbox:set_text(math.floor(total * 100))
 
+  -- Notifcation of events.
+  if status ~= batticon["status"] then
+    naughty.notify({text = status, title = "Battery"})
+  end
+  batticon["status"] = status
 end
 
 local function new(args)
