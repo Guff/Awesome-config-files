@@ -12,6 +12,8 @@ batticon["width"] = 10
 batticon["height"] = 14
 batticon["icon"] = surface(awful.util.getdir("config") .. "/icons/batticon.png")
 batticon["status"] = ""
+batticon["danger"] = 0.35
+batticon["dying"] = 0.10
 -- The battery charge
 local total = .5
 
@@ -57,11 +59,11 @@ local function new(args)
     -- It must not overlap, and since y is the counting from the top, you need to translate the rectangle to the bottom of the icon
     cr:translate(.5, (2 + batticon["height"] * (1 - total)))
     cr:rectangle(1, 1, batticon["width"] - 3, batticon["height"] * total)
-    if total > .35 then
+    if total > batticon["danger"] then
       cr:set_source_rgb(color.parse_color(beautiful.batt_ok))
-    elseif total > .1 and total <= .35 then
+    elseif total > batticon["dying"] and total <= batticon["danger"] then
       cr:set_source_rgb(color.parse_color(beautiful.batt_danger))
-    elseif total <= .1 then
+    elseif total <= batticon["danger"] then
       cr:set_source_rgb(color.parse_color(beautiful.batt_dying))
     end
 
