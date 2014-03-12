@@ -25,7 +25,7 @@ local function update(textbox)
 
 end
 
-local function worker(args)
+local function new(args)
   local args = args or {}
 
   -- A layout widget that contains the 3 widgets for the diferent
@@ -63,4 +63,4 @@ local function worker(args)
   return __bat.widget
 end
 
-return setmetatable(__bat, { __call = function(_, ...) return worker(...) end })
+return setmetatable(__bat, { __call = function(_, ...) return new(...) end })
