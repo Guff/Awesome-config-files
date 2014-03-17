@@ -21,8 +21,9 @@ local total = .5
 local function update(textbox)
   -- Battery status
   local status = ""
-  if io.open(base_string .. "/status") ~= nil then
-    status = io.open(base_string .. "/status"):read() ~= nil
+  local f = io.open(base_string .. "/status")
+  if f then
+    status = f:read()
     local charge = assert(io.open(base_string .. "/energy_now"):read())
     local capacity = assert(io.open(base_string .. "/energy_full"):read())
 
