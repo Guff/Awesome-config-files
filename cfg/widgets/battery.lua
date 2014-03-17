@@ -20,15 +20,23 @@ local total = .5
 
 local function update(textbox)
   -- Battery status
-  local status = assert(io.open(base_string .. "/status"):read())
-  local charge = assert(io.open(base_string .. "/energy_now"):read())
-  local capacity = assert(io.open(base_string .. "/energy_full"):read())
+  local status = ""
+  if io.open(base_string .. "/status") ~= nil then
+    status = io.open(base_string .. "/status"):read() ~= nil
+    local charge = assert(io.open(base_string .. "/energy_now"):read())
+    local capacity = assert(io.open(base_string .. "/energy_full"):read())
 
-  -- Calculate charge
-  total = charge / capacity
+    -- Calculate charge
+    total = charge / capacity
 
-  textbox:set_text(math.floor(total * 100))
+    textbox:set_text(math.floor(total * 100))
 
+  elseif result == nil then
+    -- Battery is not present
+    status = "Not connected"
+    total = 0
+  else
+  end
   -- Notifcation of events.
   if status ~= batticon["status"] then
     naughty.notify({text = status, title = "Battery"})
