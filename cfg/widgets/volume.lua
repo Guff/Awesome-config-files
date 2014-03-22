@@ -5,11 +5,11 @@ local naughty = require("naughty")
 local volume = {}
 
 
-volume["high"] = awful.util.getdir("config") .. "/volume-high.png"
-volume["medium"] = awful.util.getdir("config") .. "/volume-medium.png"
-volume["low"] = awful.util.getdir("config") .. "/volume-low.png"
-volume["muted"] = awful.util.getdir("config") .. "/volume-muted.png"
-volume["off"] = awful.util.getdir("config") .. "/volume-off.png"
+volume["high"] = awful.util.getdir("config") .. "/icons/volume-high.png"
+volume["medium"] = awful.util.getdir("config") .. "/icons/volume-medium.png"
+volume["low"] = awful.util.getdir("config") .. "/icons/volume-low.png"
+volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
+volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 
 local function getvolume()
   return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
