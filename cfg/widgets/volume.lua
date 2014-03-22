@@ -16,8 +16,11 @@ local function getvolume()
 end
 
 local function new(args)
-  volume.widget = wibox.widget.imagebox()
-  volume.widget:set_image(volume["high"])
+  -- Using the layout scheme
+  volume.widget = wibox.layout.fixed.horizontal()
+  local imagebox = wibox.widget.imagebox()
+  imagebox:set_image(volume["high"])
+  volume.widget:add(imagebox)
   return volume.widget
 end
 
