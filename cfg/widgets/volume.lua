@@ -21,4 +21,4 @@ local function new(args)
   return volume.widget
 end
 
-return setmetatable(__bat, { __call = function(_, ...) return new(...) end })
+return setmetatable(volume, { __call = function(_, ...) return new(...) end })
