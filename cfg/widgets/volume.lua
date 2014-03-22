@@ -12,7 +12,7 @@ volume["muted"] = awful.util.getdir("config") .. "/volume-muted.png"
 volume["off"] = awful.util.getdir("config") .. "/volume-off.png"
 
 local function getvolume()
-   return string.match(awful.util.pread("amixer -c0 get \"Master\""), "(%d+)%%")
+  return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
 end
     )
 local function new(args)
