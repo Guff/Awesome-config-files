@@ -14,9 +14,11 @@ volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 local function getvolume()
   return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
 end
-    )
+
 local function new(args)
-  return volume = {}
+  volume.widget = wibox.widget.imagebox()
+  volume.widget:set_image(volume["high"])
+  return volume.widget
 end
 
 return setmetatable(__bat, { __call = function(_, ...) return new(...) end })
