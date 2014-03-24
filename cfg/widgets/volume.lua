@@ -23,7 +23,7 @@ function volume.set(increment)
     amixer_param = math.abs(increment) .. "%5"
   end
 
-  awful.util.pread("amizer -c0 set Master " .. amixer_param)
+  awful.util.pread("amixer -c0 set Master " .. amixer_param)
 
   return nil
 end
