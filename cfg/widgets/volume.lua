@@ -11,7 +11,7 @@ volume["low"] = awful.util.getdir("config") .. "/icons/volume-low.png"
 volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
 volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 
-local function getvolume()
+function volume.get()
   return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
 end
 
@@ -20,7 +20,7 @@ local function new(args)
   volume.widget = wibox.layout.fixed.horizontal()
 
   local textbox = wibox.widget.textbox()
-  textbox:set_text(getvolume())
+  textbox:set_text(volume.get())
   volume.widget:add(textbox)
 
   local imagebox = wibox.widget.imagebox()
