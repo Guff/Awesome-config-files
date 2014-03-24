@@ -19,7 +19,7 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytasklist = {}
-local myvolume = volume()
+local myvolume = volume().widget
 
 mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 1, awful.tag.viewonly),
