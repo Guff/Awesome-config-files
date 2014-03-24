@@ -18,9 +18,15 @@ end
 local function new(args)
   -- Using the layout scheme
   volume.widget = wibox.layout.fixed.horizontal()
+
+  local textbox = wibox.widget.textbox()
+  textbox:set_text(getvolume())
+  volume.widget:add(textbox)
+
   local imagebox = wibox.widget.imagebox()
   imagebox:set_image(volume["high"])
   volume.widget:add(imagebox)
+
   return volume.widget
 end
 
