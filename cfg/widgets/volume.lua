@@ -11,7 +11,7 @@ volume["low"] = awful.util.getdir("config") .. "/icons/volume-low.png"
 volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
 volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 
-function volume.get()
+function volume:get()
   return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
 end
 
