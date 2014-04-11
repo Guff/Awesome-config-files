@@ -8,8 +8,8 @@ local globalkeys = awful.util.table.join(
     -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
     -- awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
-    awful.key({ modkey,           }, "F12", volume_up),
-    awful.key({ modkey,           }, "F11", volume_down),
+    awful.key({ modkey,           }, "F12", function () volume:set(5) end),
+    awful.key({ modkey,           }, "F11", function () volume:set(-5) end),
     awful.key({ modkey,           }, "F10", volume_mute),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
 
