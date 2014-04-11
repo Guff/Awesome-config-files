@@ -1,17 +1,31 @@
 -- Show fancy notifications for backlight and volume hotkeys
+local awful = require("awful")
+local cairo = require("lgi").cairo
+local gears = require("gears")
+local beautiful = require("beautiful")
+local naughty = require("naughty")
 
-function fancy_notify(percent, icon_function, notification)
-    local img = image.argb32(200, 50, nil)
-    img:draw_rectangle(0, 0, img.width, img.height, true, beautiful.bg_normal)
-    img:insert(image(icon_function(percent)), 0, 1)
-    img:draw_rectangle(60, 20, 130, 10, true, beautiful.bg_focus)
-    img:draw_rectangle(62, 22, 126 * percent / 100, 6, true, beautiful.fg_focus)
-    
-    local id = nil
-    if notification then id = notification.id end
-    return naughty.notify({ icon = img, replaces_id = id,
-                            text = "\n" .. math.ceil(percent) .. "%",
-                            font = "Sans Bold 10" })
+
+local function fancy_notify(percent, icon_function, notification)
+  local img = cairo.ImageSurface(cairo.Format.ARGB32, 200, 50)
+  local cr = cairo.Context(img)
+  cr:set_source(gears.color(beautiful.bg_normal)) cr:paint()
+  cr:set_source_surface(gears.surface.load(icon_function(percent)), 0, 1)
+  cr:paint()
+  cr:set_source(gears.color(beautiful.bg_focus))
+  cr:rectangle(60, 20, 130, 10)
+  cr:fill()
+  cr:set_source(gears.color(beautiful.fg_focus))
+  cr:rectangle(62, 22, 126 * percent / 100, 6)
+  cr:fill()
+
+  local id = nil
+  if notification then
+    id = notification.id
+  end
+  return naughty.notify({ icon = img, replaces_id = id,
+                          text = "\n" .. math.ceil(percent) .. "%",
+                          font = "Sans Bold 10" })
 end
 
 -- Brightness notifications
