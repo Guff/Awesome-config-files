@@ -1,6 +1,6 @@
 local awful = require("awful")
 local volume = require("cfg.widgets.volume")
--- require("misc.dict")
+local misc = require("misc.notifications")
 
 local globalkeys = awful.util.table.join(
     -- Special function keys
@@ -8,9 +8,9 @@ local globalkeys = awful.util.table.join(
     -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
     -- awful.key({ }, "XF86MonBrightnessDown", brightness_down),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
-    awful.key({ modkey,           }, "F7", volume.set(-5)),
-    awful.key({ modkey,           }, "F8", volume.set(5)),
-    awful.key({ modkey,           }, "F9", volume_mute),
+    awful.key({ modkey,           }, "F12", volume_up),
+    awful.key({ modkey,           }, "F11", volume_down),
+    awful.key({ modkey,           }, "F10", volume_mute),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
 
     -- MPD keys
