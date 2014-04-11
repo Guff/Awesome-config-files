@@ -44,6 +44,11 @@ local function new(args)
   imagebox:set_image(volume["high"])
   volume.widget:add(imagebox)
 
+  local volume_timer = timer ({timeout = 10})
+  volume_timer:connect_signal("timeout", function() textbox:set_text(volume.get()) end)
+  volume_timer:start()
+
+
   return volume
 end
 
