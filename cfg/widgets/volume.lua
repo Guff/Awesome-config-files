@@ -15,7 +15,7 @@ function volume:get()
   return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
 end
 
-function volume.set(increment)
+function volume:set(increment)
   local amixer_param = ""
   if increment < 0 then
     amixer_param = math.abs(increment) .. "-"
