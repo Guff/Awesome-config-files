@@ -18,9 +18,9 @@ end
 function volume.set(increment)
   local amixer_param = ""
   if increment < 0 then
-    amixer_param = math.abs(increment) .. "%-"
+    amixer_param = math.abs(increment) .. "-"
   elseif increment > 0 then
-    amixer_param = math.abs(increment) .. "%5"
+    amixer_param = math.abs(increment) .. "+"
   end
 
   awful.util.pread("amixer -c0 set Master " .. amixer_param)
