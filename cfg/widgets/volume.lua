@@ -26,6 +26,10 @@ function volume:set(increment)
 
   awful.util.pread("amixer -c0 set Master " .. amixer_param)
 
+  -- Volume notification bar
+  -- Passing it trough avoids pop spaming
+  vol_notification = notify:fancy(volume:get(), volume["high"], vol_notification)
+
   return nil
 end
 
