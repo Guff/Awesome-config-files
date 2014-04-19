@@ -29,7 +29,7 @@ tyrannical.tags = {
     name = "www",
     init = true,
     layout = awful.layout.suit.max,
-    exec_once = { "luakit" },
+    exec_once = { browser },
     screen = 1
   },
   {
