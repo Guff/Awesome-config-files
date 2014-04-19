@@ -1,6 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local battery = require("cfg.widgets.battery")
+local volume = require("cfg.widgets.volume")
 --require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
@@ -18,6 +19,7 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytasklist = {}
+local myvolume = volume().widget
 
 mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 1, awful.tag.viewonly),
@@ -102,6 +104,7 @@ for s = 1, screen.count() do
     -- Widgets that go on the right, such as the layoutbox
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(mybattery)
+    right_layout:add(myvolume)
     right_layout:add(mytextclock)
     right_layout:add(mysystray)
     right_layout:add(mylayoutbox[s])
