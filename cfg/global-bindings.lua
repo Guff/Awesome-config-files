@@ -10,7 +10,7 @@ local globalkeys = awful.util.table.join(
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
     awful.key({ modkey,           }, "F12", function () volume:set(5) end),
     awful.key({ modkey,           }, "F11", function () volume:set(-5) end),
-    awful.key({ modkey,           }, "F10", volume_mute),
+    awful.key({ modkey,           }, "F10", function () volume:mute() end),
     awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
 
     -- MPD keys
