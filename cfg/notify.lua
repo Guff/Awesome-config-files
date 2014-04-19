@@ -7,11 +7,11 @@ local naughty = require("naughty")
 
 local notify = {}
 
-function notify:fancy(percent, icon_function, notification)
+function notify:fancy(percent, icon, notification)
   local img = cairo.ImageSurface(cairo.Format.ARGB32, 200, 50)
   local cr = cairo.Context(img)
   cr:set_source(gears.color(beautiful.bg_normal)) cr:paint()
-  cr:set_source_surface(gears.surface.load(icon_function(percent)), 0, 1)
+  cr:set_source_surface(gears.surface.load(icon, 0, 1))
   cr:paint()
   cr:set_source(gears.color(beautiful.bg_focus))
   cr:rectangle(60, 20, 130, 10)
