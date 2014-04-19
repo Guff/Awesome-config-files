@@ -12,9 +12,15 @@ volume["low"] = awful.util.getdir("config") .. "/icons/volume-low.png"
 volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
 volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 
+local function get_mute()
+  return string.find(awful.util.pread("amixer -c0 get \"Master\""), '%[on%]') == nil
+end
+
 local function get_icon()
   local percentage = volume:get()
-  if percentage == 0 then
+  if get_mute() then
+    icon = volume["muted"]
+  elseif percentage == 0 then
     icon = volume["off"]
   elseif percentage < 30 then
     icon = volume["low"]
@@ -26,6 +32,11 @@ local function get_icon()
   return icon
 end
 
+local function notify_volume()
+  -- Volume notification bar
+  -- Passing it trough avoids pop spaming
+  vol_notification = notify:fancy(volume:get(), get_icon() , vol_notification)
+end
 
 function volume:get()
   return tonumber(string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%"))
@@ -40,12 +51,18 @@ function volume:set(increment)
   end
 
   awful.util.pread("amixer -c0 set Master " .. amixer_param)
-
-  -- Volume notification bar
-  -- Passing it trough avoids pop spaming
-  vol_notification = notify:fancy(volume:get(), get_icon() , vol_notification)
+  notify_volume()
 
   return nil
+end
+
+function volume:mute()
+  if get_mute() then
+    awful.util.pread("amixer -c0 set Master unmute")
+  else
+    awful.util.pread("amixer -c0 set Master mute")
+  end
+  notify_volume()
 end
 
 local function new(args)
