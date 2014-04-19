@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local naughty = require("naughty")
-local notify = require("cfg.notify")
+local notify = require("lib.notify")
 
 local volume = {}
 
