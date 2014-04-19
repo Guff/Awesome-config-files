@@ -13,7 +13,7 @@ volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
 volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 
 function volume:get()
-  return string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%")
+  return tonumber(string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%"))
 end
 
 function volume:set(increment)
