@@ -39,7 +39,11 @@ local function notify_volume()
 end
 
 function volume:get()
-  return tonumber(string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%"))
+  local volume = tonumber(string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%"))
+  if volume == nil then
+    return 0
+  end
+  return volume
 end
 
 function volume:set(increment)
