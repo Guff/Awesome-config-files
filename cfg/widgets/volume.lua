@@ -39,7 +39,7 @@ local function notify_volume()
 end
 
 function volume:get()
-  local volume = tonumber(string.match(awful.util.pread("amixer -c0 get Master"), "(%d+)%%"))
+  local volume = tonumber(string.match(awful.util.pread("amixer get Master"), "(%d+)%%"))
   if volume == nil then
     return 0
   end
@@ -49,12 +49,12 @@ end
 function volume:set(increment)
   local amixer_param = ""
   if increment < 0 then
-    amixer_param = math.abs(increment) .. "-"
+    amixer_param = math.abs(increment) .. "%-"
   elseif increment > 0 then
-    amixer_param = math.abs(increment) .. "+"
+    amixer_param = math.abs(increment) .. "%+"
   end
 
-  awful.util.pread("amixer -c0 set Master " .. amixer_param)
+  awful.util.pread("amixer set Master " .. amixer_param)
   notify_volume()
 
   return nil
@@ -62,9 +62,9 @@ end
 
 function volume:mute()
   if get_mute() then
-    awful.util.pread("amixer -c0 set Master unmute")
+    awful.util.pread("amixer set Master unmute")
   else
-    awful.util.pread("amixer -c0 set Master mute")
+    awful.util.pread("amixer set Master mute")
   end
   notify_volume()
 end
