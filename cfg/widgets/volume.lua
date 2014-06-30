@@ -13,7 +13,7 @@ volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
 volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
 
 local function get_mute()
-  return string.find(awful.util.pread("amixer -c0 get \"Master\""), '%[on%]') == nil
+  return string.find(awful.util.pread("amixer get \"Master\""), '%[on%]') == nil
 end
 
 local function get_icon()
