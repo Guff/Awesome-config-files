@@ -42,7 +42,7 @@ function volume:get()
   local volume = tonumber(string.match(awful.util.pread("amixer get Master"), "(%d+)%%"))
   if volume == nil then
     naughty.notify({
-      text = "Error: Could not get volume information"
+      text = "Error: Could not get volume information",
       title = "Volume"
     })
     return 0
