@@ -1,12 +1,13 @@
 local awful = require("awful")
-local volume = require("cfg.widgets.volume")
+local brightness = require("cfg.widgets.brightness")
 local misc = require("misc.notifications")
+local volume = require("cfg.widgets.volume")
 
 local globalkeys = awful.util.table.join(
     -- Special function keys
     -- Briteness is controled by hardware on this laptop
-    -- awful.key({ }, "XF86MonBrightnessUp", brightness_up),
-    -- awful.key({ }, "XF86MonBrightnessDown", brightness_down),
+    awful.key({ }, "XF86MonBrightnessDown", function () brightness:down(5) end),
+    awful.key({ }, "XF86MonBrightnessUp", function () brightness:up(5) end),
     awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
     awful.key({ modkey,           }, "F12", function () volume:set(5) end),
     awful.key({ modkey,           }, "F11", function () volume:set(-5) end),
