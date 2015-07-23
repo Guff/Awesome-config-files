@@ -1,17 +1,18 @@
 local awful = require("awful")
-local wibox = require("wibox")
 local battery = require("cfg.widgets.battery")
+local brightness = require("cfg.widgets.brightness")
 local volume = require("cfg.widgets.volume")
+local wibox = require("wibox")
 --require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
 
 -- widgets
-local mytextclock = awful.widget.textclock()
-local mysystray= wibox.widget.systray()
-
--- battery
 local mybattery = battery()
+local mybrightness = brightness().widget
+local mysystray= wibox.widget.systray()
+local mytextclock = awful.widget.textclock()
+local myvolume = volume().widget
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -19,7 +20,6 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytasklist = {}
-local myvolume = volume().widget
 
 mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 1, awful.tag.viewonly),
@@ -105,6 +105,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     right_layout:add(mybattery)
     right_layout:add(myvolume)
+    right_layout:add(mybrightness)
     right_layout:add(mytextclock)
     right_layout:add(mysystray)
     right_layout:add(mylayoutbox[s])
