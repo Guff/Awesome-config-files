@@ -8,7 +8,7 @@ local gears = require("gears")
 terminal = "urxvt"
 editor = "nvim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "dwb"
+browser = "firefox"
 
 modkey = "Mod4"
 
