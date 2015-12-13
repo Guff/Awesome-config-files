@@ -8,7 +8,7 @@ local globalkeys = awful.util.table.join(
     -- Briteness is controled by hardware on this laptop
     awful.key({ }, "XF86MonBrightnessDown", function () brightness:down(5) end),
     awful.key({ }, "XF86MonBrightnessUp", function () brightness:up(5) end),
-    awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
+    awful.key({ modkey,           }, "f", function () awful.util.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey,           }, "F12", function () volume:set(5) end),
     awful.key({ modkey,           }, "F11", function () volume:set(-5) end),
     awful.key({ modkey,           }, "F10", function () volume:mute() end),
