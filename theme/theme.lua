@@ -102,4 +102,4 @@ theme.layout_tiletop = theme_base .. "layouts/tiletop.png"
 theme.awesome_icon = theme_base .. "awesome-icon-3.png"
 
 return theme
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:encoding=utf-8:textwidth=80
+
