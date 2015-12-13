@@ -22,7 +22,6 @@ local globalkeys = awful.util.table.join(
 
     -- Launch my terminal setup
     awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
-    awful.key({ modkey,           }, "f", function() awful.util.spawn_with_shell("xset dpms force off") end ),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
