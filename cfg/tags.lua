@@ -1,5 +1,4 @@
 local awful = require("awful")
-local tyrannical = require("tyrannical")
 
 layouts = {
   awful.layout.suit.floating,
@@ -16,71 +15,13 @@ layouts = {
   awful.layout.suit.magnifier
 }
 
-mytags = { "main", "www", "dev", "doc", "admin", "⚈", "⌘", "⌥" }
+tags = {}
+for s = 1, screen.count() do
+    -- Each screen has its own tag table.
+    tags[s] = awful.tag(
+      { "main", "www", "dev", "admin", "⚈","⌘", "⌥", "☉", "♪"},
+      s,
+      {layouts[2], layouts[10], layouts[4], layouts[2], layouts[2] ,layouts[1], layouts[1], layouts[1], layouts[1]}
+    )
+end
 
-tyrannical.tags = {
-  {
-    name = "main",
-    init = true,
-    layout = awful.layout.suit.tile,
-    screen = 1
-  },
-  {
-    name = "www",
-    init = true,
-    layout = awful.layout.suit.max,
-    exec_once = { browser },
-    screen = 1
-  },
-  {
-    name = "dev",
-    init = true,
-    layout = awful.layout.suit.tile.bottom
-  },
-  {
-    name = "admin",
-    init = true,
-    layout = awful.layout.suit.tile
-  },
-  {
-    name = "⚈",
-    layout = awful.layout.suit.float
-  },
-  {
-    name = "⌘",
-    init = true,
-    layout = awful.layout.suit.float
-  },
-  {
-    name = "⌥",
-    init = true,
-    layout = awful.layout.suit.float
-  },
-  {
-    name = "Misc",
-    init = true,
-    layout = awful.layout.suit.tile,
-    screen = 2
-  },
-  {
-    name = "Doc",
-    init = true,
-    layout = awful.layout.suit.tile,
-    screen = 2
-  },
-  {
-    name = "OpenSCAD",
-    init = true,
-    exclusive = true,
-    layout = awful.layout.suit.max,
-    class = { "OpenSCAD" },
-    screen = 2,
-  },
-  {
-    name = "Music",
-    init = true,
-    layout = awful.layout.suit.max,
-    screen = 2,
-    force_screen = 2
-  }
-}
