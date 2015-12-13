@@ -13,7 +13,7 @@ theme.tasklist_font = "Droid Sans 8"
 theme.taglist_font = "Droid Sans 9"
 
 theme.bg_normal     = "#323232"
-theme.bg_focus      = "#115584"
+theme.bg_focus      = "#6D9E3F"
 theme.bg_urgent     = "#DC8536"
 theme.bg_minimize   = "#5E788B"
 
@@ -23,8 +23,8 @@ theme.fg_urgent     = "#f7f7f7"
 theme.fg_minimize  = "#b9bbbb"
 
 theme.border_width  = "1"
-theme.border_normal = "#282421"
-theme.border_focus  = "#2F6E9A"
+theme.border_normal = "#303030"
+theme.border_focus  = "#A3D572"
 theme.border_marked = "#f7f7f7"
 
 -- There are another variables sets
