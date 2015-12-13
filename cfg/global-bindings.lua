@@ -8,7 +8,7 @@ local globalkeys = awful.util.table.join(
     -- Briteness is controled by hardware on this laptop
     awful.key({ }, "XF86MonBrightnessDown", function () brightness:down(5) end),
     awful.key({ }, "XF86MonBrightnessUp", function () brightness:up(5) end),
-    awful.key({ }, "XF86ScreenSaver", function () awful.util.spawn("lualock -n") end),
+    awful.key({ modkey,           }, "f", function () awful.util.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey,           }, "F12", function () volume:set(5) end),
     awful.key({ modkey,           }, "F11", function () volume:set(-5) end),
     awful.key({ modkey,           }, "F10", function () volume:mute() end),
@@ -22,11 +22,10 @@ local globalkeys = awful.util.table.join(
 
     -- Launch my terminal setup
     awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
-    awful.key({ modkey,           }, "f", function() awful.util.spawn_with_shell("xset dpms force off") end ),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey,           }, "e", function () awful.util.spawn("thunar") end),
+    awful.key({ modkey,           }, "e", function () awful.util.spawn("urxvt -e ranger") end),
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -67,25 +66,6 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    -- awful.key({ modkey,           }, ";",
-        -- function ()
-            -- awful.prompt.run({ prompt = "Dict: " }, mypromptbox[mouse.screen].widget,
-            -- function(word)
-                -- local definition = awful.util.pread("dict " .. word .. " 2>&1")
-                -- naughty.notify({ text = definition, timeout = 13, title = word,
-                    -- width = 400, font = "Sans 7" })
-            -- end, dict_cb, awful.util.getdir("cache") .. "/dict")
-        -- end
-    -- ),
-    -- awful.key({ modkey, "Control" }, ";",
-        -- function ()
-            -- if selection() then
-                -- definition = awful.util.pread("dict " .. selection() .. " 2>&1")
-                -- naughty.notify({ text = definition, timeout = 13,
-                    -- title = selection(), width = 400, font = "Sans 7" })
-            -- end
-        -- end
-    --),
     awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",

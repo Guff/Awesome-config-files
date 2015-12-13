@@ -6,9 +6,9 @@ local gears = require("gears")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
-editor = "vim"
+editor = "nvim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "dwb"
+browser = "firefox"
 
 modkey = "Mod4"
 

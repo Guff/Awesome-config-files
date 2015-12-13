@@ -1,6 +1,0 @@
-[submodule "tyrannical"]
-	path = tyrannical
-	url = git@github.com:Elv13/tyrannical.git
-[submodule "radical"]
-	path = radical
-	url = git@github.com:Elv13/radical.git
