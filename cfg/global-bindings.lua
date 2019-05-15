@@ -107,7 +107,7 @@ for i = 1, 9 do
         local screen = mouse.screen
         local tag = screen.tags[i]
         if tag then
-          awful.tag.viewonly(tag)
+          tag:view_only()
         end
       end
     ),

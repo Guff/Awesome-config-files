@@ -22,7 +22,7 @@ mytaglist = {}
 mytasklist = {}
 
 mytaglist.buttons = awful.util.table.join(
-  awful.button({ }, 1, awful.tag.viewonly),
+  awful.button({ }, 1, function(t) t:view_only() end),
   awful.button({ modkey }, 1, awful.client.movetotag),
   awful.button({ }, 3, awful.tag.viewtoggle),
   awful.button({ modkey }, 3, awful.client.toggletag),
@@ -38,7 +38,7 @@ mytasklist.buttons = awful.util.table.join(
         -- Without this, the following :ivisible() makes no sense
         c.minimized = false
         if not c:isvisible() then
-          awful.tag.viewonly(c:tags()[1])
+          c:tags()[1]:view_only()
         end
         -- This will also un-minimize the client, if needed
         client.focus = c
