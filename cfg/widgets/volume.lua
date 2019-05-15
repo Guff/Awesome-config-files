@@ -2,6 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local naughty = require("naughty")
 local notify = require("lib.notify")
+local gears = require("gears")
 
 local volume = {}
 
@@ -89,7 +90,7 @@ local function new(args)
   imagebox:set_image(get_icon())
   volume.widget:add(imagebox)
 
-  local volume_timer = timer ({timeout = 10})
+  local volume_timer = gears.timer ({timeout = 10})
   volume_timer:connect_signal("timeout",
     function()
       textbox:set_text(volume:get())

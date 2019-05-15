@@ -11,7 +11,7 @@ local wibox = require("wibox")
 local mybattery = battery()
 local mybrightness = brightness().widget
 local mysystray= wibox.widget.systray()
-local mytextclock = awful.widget.textclock()
+local mytextclock = wibox.widget.textclock()
 local myvolume = volume().widget
 
 -- Create a wibox for each screen and add it
@@ -94,7 +94,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibar({ position = "top", screen = s })
 
     -- Widgets that go on the left side of the bar, such as the taglist and the the promptbox
     local left_layout = wibox.layout.fixed.horizontal()

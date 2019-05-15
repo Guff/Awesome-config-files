@@ -4,6 +4,7 @@ local naughty = require("naughty")
 local surface = require("gears.surface")
 local beautiful = require("beautiful")
 local color = require("gears.color")
+local gears = require("gears")
 
 local __bat = {}
 local base_string = "/sys/class/power_supply/BAT0"
@@ -88,7 +89,7 @@ local function new(args)
 
 
 
-  local battery_timer = timer ({timeout = 10})
+  local battery_timer = gears.timer ({timeout = 10})
   battery_timer:connect_signal("timeout", function() update(textbox) end)
   battery_timer:start()
 
