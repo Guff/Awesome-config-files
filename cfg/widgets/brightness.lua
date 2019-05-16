@@ -3,10 +3,11 @@ local wibox = require("wibox")
 local naughty = require("naughty")
 local notify = require("lib.notify")
 local gears = require("gears")
+local beautiful = require("beautiful")
 
 local brightness = {}
 
-brightness["icon"] = awful.util.getdir("config") .. "/icons/brightness.png"
+brightness["icon"] = beautiful.theme_path .. "/icons/brightness.png"
 
 local function notify_brightness()
   -- Volume notification bar

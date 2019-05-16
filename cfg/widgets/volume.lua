@@ -1,17 +1,18 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local naughty = require("naughty")
-local notify = require("lib.notify")
+local notify = require("notify")
 local gears = require("gears")
+local beautiful = require("beautiful")
 
 local volume = {}
 
 
-volume["high"] = awful.util.getdir("config") .. "/icons/volume-high.png"
-volume["medium"] = awful.util.getdir("config") .. "/icons/volume-medium.png"
-volume["low"] = awful.util.getdir("config") .. "/icons/volume-low.png"
-volume["muted"] = awful.util.getdir("config") .. "/icons/volume-muted.png"
-volume["off"] = awful.util.getdir("config") .. "/icons/volume-off.png"
+volume["high"] = beautiful.theme_path .. "/icons/volume-high.png"
+volume["medium"] = beautiful.theme_path .. "/icons/volume-medium.png"
+volume["low"] = beautiful.theme_path .. "/icons/volume-low.png"
+volume["muted"] = beautiful.theme_path .. "/icons/volume-muted.png"
+volume["off"] = beautiful.theme_path .. "/icons/volume-off.png"
 
 local function get_icon(vol, is_muted)
   local percentage = vol
