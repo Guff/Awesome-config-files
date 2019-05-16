@@ -21,8 +21,6 @@ if beautiful.wallpaper then
   end
 end
 
--- Misc. settings and tools
-require("cfg.misc")
 -- Load layouts and tags
 require("cfg.tags")
 require("cfg.rules")

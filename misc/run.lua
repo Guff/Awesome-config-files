@@ -1,10 +1,5 @@
 local awful = require("awful")
 
-local oldspawn = awful.util.spawn
-awful.util.spawn = function (s)
-  oldspawn(s, false)
-end
-
 --- Spawns cmd if no client can be found matching properties
 -- If such a client can be found, pop to first tag where it is visible, and give it focus
 -- @param cmd the command to execute
@@ -45,7 +40,7 @@ function run_or_raise(cmd, properties)
       c:raise()
       return
    end
-   awful.util.spawn(cmd)
+   awful.spawn.spawn(cmd)
 end
 
 -- Returns true if all pairs in table1 are present in table2

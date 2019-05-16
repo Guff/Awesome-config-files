@@ -8,24 +8,24 @@ local globalkeys = awful.util.table.join(
     -- Briteness is controled by hardware on this laptop
     awful.key({ }, "XF86MonBrightnessDown", function () brightness:down(5) end),
     awful.key({ }, "XF86MonBrightnessUp", function () brightness:up(5) end),
-    awful.key({ modkey,           }, "f", function () awful.util.spawn("xscreensaver-command --lock") end),
+    awful.key({ modkey,           }, "f", function () awful.spawn.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey,           }, "F12", function () volume:set(5) end),
     awful.key({ modkey,           }, "F11", function () volume:set(-5) end),
     awful.key({ modkey,           }, "F10", function () volume:mute() end),
-    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
+    awful.key({ }, "Print", function () awful.spawn.spawn("scrot -e 'mv $f ~/Pictures/ && xdg-open ~/Pictures/$f'") end),
 
     -- MPD keys
-    awful.key({ modkey, "Shift"   }, "Up", function () awful.util.spawn("ncmpcpp toggle") end),
-    awful.key({ modkey, "Shift"   }, "Down", function () awful.util.spawn("ncmpcpp stop") end),
-    awful.key({ modkey, "Shift"   }, "Left", function () awful.util.spawn("ncmpcpp prev") end),
-    awful.key({ modkey, "Shift"   }, "Right", function () awful.util.spawn("ncmpcpp next") end),
+    awful.key({ modkey, "Shift"   }, "Up", function () awful.spawn.spawn("ncmpcpp toggle") end),
+    awful.key({ modkey, "Shift"   }, "Down", function () awful.spawn.spawn("ncmpcpp stop") end),
+    awful.key({ modkey, "Shift"   }, "Left", function () awful.spawn.spawn("ncmpcpp prev") end),
+    awful.key({ modkey, "Shift"   }, "Right", function () awful.spawn.spawn("ncmpcpp next") end),
 
     -- Launch my terminal setup
-    awful.key({ modkey,           }, "Return", function() awful.util.spawn("urxvt") end ),
+    awful.key({ modkey,           }, "Return", function() awful.spawn.spawn("urxvt") end ),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey,           }, "e", function () awful.util.spawn("urxvt -e ranger") end),
+    awful.key({ modkey,           }, "e", function () awful.spawn.spawn("urxvt -e ranger") end),
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
