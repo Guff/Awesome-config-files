@@ -3,7 +3,6 @@ local battery = require("cfg.widgets.battery")
 local brightness = require("cfg.widgets.brightness")
 local volume = require("cfg.widgets.volume")
 local wibox = require("wibox")
---require("misc.notifications")
 -- freedesktop menu
 --require("cfg.menu")
 

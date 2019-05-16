@@ -24,7 +24,6 @@ end
 -- Load layouts and tags
 require("cfg.tags")
 require("cfg.rules")
-require("misc.notifications")
 -- Load wibox
 require("cfg.wibox")
 require("cfg.signals")

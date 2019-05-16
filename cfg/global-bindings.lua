@@ -1,6 +1,5 @@
 local awful = require("awful")
 local brightness = require("cfg.widgets.brightness")
-local misc = require("misc.notifications")
 local volume = require("cfg.widgets.volume")
 
 local globalkeys = awful.util.table.join(
