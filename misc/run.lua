@@ -1,15 +1,4 @@
--- This is used later as the default terminal and editor to run.
-terminal = "lxterminal"
-editor = "vim"
-editor_cmd = terminal .. " -e " .. editor
-browser = "firefox"
-
-modkey = "Mod4"
-
-local oldspawn = awful.util.spawn
-awful.util.spawn = function (s)
-  oldspawn(s, false)
-end
+local awful = require("awful")
 
 --- Spawns cmd if no client can be found matching properties
 -- If such a client can be found, pop to first tag where it is visible, and give it focus
@@ -44,14 +33,14 @@ function run_or_raise(cmd, properties)
          awful.client.movetotag(curtag, c)
       else
          -- Otherwise, pop to first tag client is visible on
-         awful.tag.viewonly(ctags[1])
+         ctags[1]:view_only()
       end
       -- And then focus the client
       client.focus = c
       c:raise()
       return
    end
-   awful.util.spawn(cmd)
+   awful.spawn.spawn(cmd)
 end
 
 -- Returns true if all pairs in table1 are present in table2
